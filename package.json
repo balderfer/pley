@@ -9,6 +9,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "6.6.0"
+  },
   "dependencies": {
     "koa": "^1.2.4",
     "koa-hbs": "^0.8.2",
