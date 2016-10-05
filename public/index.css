@@ -1,3 +1,110 @@
-h1 {
-  color: red;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+  font-family: 'Open Sans', sans-serif;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+html, body {
+  font-size: 20px;
+}
+
+.hero {
+  width: 100vw;
+  height: 100vh;
+  padding: 8rem;
+  box-sizing: border-box;
+}
+
+
+.hero img {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.hero .text-container {
+  display: inline-block;
+  width: 420px;
+}
+
+.hero .text-container h1 {
+  font-weight: 900;
+  font-size: 5rem;
+  color: #333333;
+}
+
+.hero .text-container p {
+  margin: 1.5rem 0;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  color: #666666;
+}
+
+.hero .text-container button {
+  padding: 1rem;
+  background-color: #ffd100;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #333333;
+  box-shadow: 0 2px 4px #999999;
+  transition: all 0.25s ease;
+}
+
+.hero .text-container button:hover {
+  transition: all 0.25s ease;
+  transform: translate3d(0, 1px, 0);
+  background-color: #FFDA33;
+  box-shadow: 0 1px 2px #666666;
+  cursor: pointer;
 }
