@@ -4,6 +4,8 @@ const static = require("koa-static");
 const Router = require("./app/router");
 
 
+// comment out some BULLSHIT
+
 const app = koa();
 
 app.use(hbs.middleware({
