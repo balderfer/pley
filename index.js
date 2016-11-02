@@ -8,7 +8,6 @@ const Router = require("./app/router");
 
 //wat
 
-
 const app = koa();
 
 app.use(hbs.middleware({
