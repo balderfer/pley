@@ -6,6 +6,9 @@ const Router = require("./app/router");
 // comment out some BULLSHIT
 
 
+//wat
+
+
 const app = koa();
 
 app.use(hbs.middleware({
