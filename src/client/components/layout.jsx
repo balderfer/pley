@@ -25,9 +25,9 @@ class Layout extends React.Component {
                     <p>Docs</p>
                 </li>
               </a>
-              <a href="/contact">
+              <a href="/about">
                 <li className="link">
-                    <p>Contact</p>
+                    <p>About</p>
                 </li>
               </a>
             </ul>

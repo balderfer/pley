@@ -63,7 +63,7 @@
 	var Layout = __webpack_require__(227);
 	var Landing = __webpack_require__(228);
 	var Docs = __webpack_require__(229);
-	var Contact = __webpack_require__(230);
+	var About = __webpack_require__(230);
 
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -111,7 +111,7 @@
 	          { history: browserHistory },
 	          React.createElement(Route, { path: '/', component: Landing }),
 	          React.createElement(Route, { path: '/docs', component: Docs }),
-	          React.createElement(Route, { path: '/contact', component: Contact }),
+	          React.createElement(Route, { path: '/about', component: About }),
 	          this.getLanding()
 	        )
 	      );
@@ -26462,14 +26462,14 @@
 	              ),
 	              React.createElement(
 	                'a',
-	                { href: '/contact' },
+	                { href: '/about' },
 	                React.createElement(
 	                  'li',
 	                  { className: 'link' },
 	                  React.createElement(
 	                    'p',
 	                    null,
-	                    'Contact'
+	                    'About'
 	                  )
 	                )
 	              )
@@ -27200,16 +27200,16 @@
 
 	var React = __webpack_require__(1);
 
-	var Contact = function (_React$Component) {
-	  _inherits(Contact, _React$Component);
+	var About = function (_React$Component) {
+	  _inherits(About, _React$Component);
 
-	  function Contact(props) {
-	    _classCallCheck(this, Contact);
+	  function About(props) {
+	    _classCallCheck(this, About);
 
-	    return _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
+	    return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).call(this, props));
 	  }
 
-	  _createClass(Contact, [{
+	  _createClass(About, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
@@ -27217,20 +27217,33 @@
 	    value: function render() {
 	      return React.createElement(
 	        'div',
-	        { className: 'contact' },
+	        { className: 'about' },
 	        React.createElement(
-	          'h1',
-	          null,
-	          'Contact!'
+	          'div',
+	          { className: 'container' },
+	          React.createElement(
+	            'div',
+	            { className: 'text-container' },
+	            React.createElement(
+	              'h2',
+	              null,
+	              'About Us'
+	            ),
+	            React.createElement(
+	              'p',
+	              null,
+	              'We\'re a group of CS students at Purdue who are passionate about web applications. We believe that the future depends on the liberty to deploy a web application whenever you wish. Help us change the future, just press Pley.'
+	            )
+	          )
 	        )
 	      );
 	    }
 	  }]);
 
-	  return Contact;
+	  return About;
 	}(React.Component);
 
-	module.exports = Contact;
+	module.exports = About;
 
 /***/ }
 /******/ ]);

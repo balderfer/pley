@@ -53,7 +53,7 @@ html, body {
   font-size: 20px;
 }
 
-.hero, .docs, .contact {
+.hero, .docs, .about {
   width: 100vw;
   margin-top: 2rem;
   box-sizing: border-box;
@@ -67,7 +67,7 @@ html, body {
   vertical-align: top;
 }
 
-.hero .text-container {
+.text-container {
   display: inline-block;
   width: 420px;
   margin-bottom: 1.5rem;

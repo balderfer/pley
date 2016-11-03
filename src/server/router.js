@@ -22,7 +22,7 @@ router.post('/verify', (req, res) => {
   }
 });
 
-router.get(['/', '/docs', '/contact'], (req, res) => {
+router.get(['/', '/docs', '/about'], (req, res) => {
   res.render('index');
 });
 

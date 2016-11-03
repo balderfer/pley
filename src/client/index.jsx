@@ -7,7 +7,7 @@ const browserHistory = require('react-router').browserHistory;
 const Layout = require('./components/layout.jsx');
 const Landing = require('./components/landing.jsx');
 const Docs = require('./components/docs.jsx');
-const Contact = require('./components/contact.jsx');
+const About = require('./components/about.jsx');
 
 class App extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class App extends React.Component {
         <Router history={browserHistory}>
           <Route path="/" component={Landing}/>
           <Route path="/docs" component={Docs} />
-          <Route path="/contact" component={Contact} />
+          <Route path="/about" component={About} />
         {this.getLanding()}
         </Router>
       </Layout>
