@@ -1,7 +1,7 @@
 const koa = require("koa");
 const hbs = require("koa-hbs");
 const static = require("koa-static");
-const Router = require("./app/router");
+const Router = require("./src/server/router");
 
 const app = koa();
 

@@ -99,6 +99,8 @@ html, body {
   color: #333333;
   box-shadow: 0 2px 4px #999999;
   transition: all 0.25s ease;
+
+  margin-bottom: 1.5em;
 }
 
 .hero .text-container button:hover {
@@ -107,4 +109,21 @@ html, body {
   background-color: #FFDA33;
   box-shadow: 0 1px 2px #666666;
   cursor: pointer;
+}
+
+.hero .text-container .js-slide {
+  /*padding-left: 20rem;*/
+  
+  transition: all 0.5s ease;
+}
+
+.hero .text-container .js-email-textbox {
+  opacity: 0;
+  width: 0;
+}
+
+.hero .text-container .js-email-textbox .js-appear{
+  opacity: 1;
+  width: 20rem;
+  transition: all 0.5s ease;
 }

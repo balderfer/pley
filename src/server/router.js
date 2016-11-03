@@ -1,3 +1,5 @@
+'use strict';
+
 const route = require("koa-route");
 
 class Router {
@@ -8,7 +10,6 @@ class Router {
   * index() {
     yield this.render("index");
   }
-
 }
 
 module.exports = Router;
