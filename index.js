@@ -5,7 +5,6 @@ const routing = require('./src/server/router');
 
 const app = express();
 
-
 /**
  * For timestamped console messages.
  * It makes for easier debugging.
