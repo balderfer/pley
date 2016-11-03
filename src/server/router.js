@@ -1,25 +1,29 @@
 'use strict';
 
-const route = require('koa-route');
+const express = require('express');
+const router = express.Router();
+
 const Verify = require('./verify');
 
-class Router {
-  constructor(app) {
-    app.use(route.get('/', this.index));
+router.get('/', (req, res) => {
+  res.render('index');
+});
 
-    app.use(route.post('/verify', this.createVerification));
+router.post('/verify', (req, res) => {
+  if (!req.body || !req.body.email) {
+    res.status = 400;
+    res.end('Incorrect parameters.');
+  } else {
+    Verify.create(req.body.email, (success) => {
+      if(success) {
+        res.status = 200;
+        res.send('Success');
+      } else {
+        res.status = 400;
+        res.send('Failure');
+      }
+    });
   }
+});
 
-  * index() {
-    yield this.render('index');
-  }
-
-  * createVerification(next) {
-    Verify.create();
-
-    this.status = 200;
-    yield next;
-  }
-}
-
-module.exports = Router;
+module.exports = router;

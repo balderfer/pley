@@ -12,15 +12,10 @@ class Landing extends React.Component {
 
     const verificationCreationUrl = '/verify';
 
-    $.ajax({
-      type: 'POST',
-      url: verificationCreationUrl,
-      data: {
-        email: this.props.verificationEmail
-      },
-      success: (data) => {
-        console.log('post success! data:',data);
-      }
+    $.post(verificationCreationUrl, {
+      email: this.props.verificationEmail
+    }, (data) => {
+      console.log('posted! data:',data);
     });
   }
 

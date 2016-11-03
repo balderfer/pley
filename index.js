@@ -1,17 +1,34 @@
-const koa = require('koa');
-const hbs = require('koa-hbs');
-const koaStatic = require('koa-static');
-const Router = require('./src/server/router');
+const express = require('express');
+const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
 
-const app = koa();
+const routing = require('./src/server/router');
 
-app.use(hbs.middleware({
-  viewPath: __dirname + '/views'
+const app = express();
+
+/**
+ * For timestamped console messages.
+ * It makes for easier debugging.
+ */
+require('log-timestamp');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/', routing);
+
+// Set the view engine to handlebars.
+app.set('views', 'views/');
+app.engine('.hbs', exphbs({
+  layoutsDir: 'views/',
+  extname: '.hbs'
 }));
+app.set('view engine', '.hbs');
 
-app.use(koaStatic(__dirname + '/public'));
+app.use('/',  express.static('./public'));
 
-new Router(app);
 const port = process.env.PORT || 3000;
 
-app.listen(port);
+app.listen(port, function() {
+  console.log('Listening on port:', port);
+});

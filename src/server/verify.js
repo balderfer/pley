@@ -7,10 +7,15 @@ class Verify {
     // TODO: Connect to mongodb
   }
 
-  create() {
-    this.createVerificationToken((token) => {
-      console.log('token created:',token);
-    });
+  create(email, done) {
+    if (this.verifyPurdueEmail(email)) {
+      this.createVerificationToken((token) => {
+        console.log('token created:',token);
+        done(true);
+      });
+    } else {
+      done(false);
+    }
   }
 
   createVerificationToken(callback) {
@@ -18,6 +23,10 @@ class Verify {
       const token = buf.toString('base64').replace(/\//g,'_').replace(/\+/g,'-');
       callback(token);
     });
+  }
+
+  verifyPurdueEmail(purdueEmail) {
+    return purdueEmail;
   }
 }
 

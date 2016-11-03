@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test",
     "clean": "rm -rf build",
     "build": "npm run clean && gulp",
-    "start": "npm run clean && gulp",
-    "test": "gulp test"
+    "start": "npm run clean && gulp"
   },
   "author": "",
   "license": "ISC",
@@ -16,11 +15,11 @@
     "node": "6.6.0"
   },
   "dependencies": {
-    "koa": "^1.2.4",
-    "koa-hbs": "^0.8.2",
-    "koa-render": "^0.2.1",
-    "koa-route": "^2.4.2",
-    "koa-static": "^2.0.0",
+    "async": "^2.1.2",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "log-timestamp": "^0.1.2",
     "uuid": "^2.0.3"
   },
   "devDependencies": {
