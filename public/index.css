@@ -90,11 +90,9 @@ h2 {
 h3 {
   font-weight: 900;
   font-size: 2rem;
-  color: #333333;
-  background-color: #ffd100;
-  display: inline;
-  padding: 0 0.5rem;
-  margin-bottom: 1.5rem;
+  color: #999;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #999;
 }
 
 h4 {
@@ -192,7 +190,7 @@ p.small {
 
 
 .layout .header .link {
-  padding: 20px  1rem;
+  padding: 14px 1rem;
   box-sizing: border-box;
   border-radius: 6px;
   font-size: 0.8rem;

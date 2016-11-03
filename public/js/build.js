@@ -27233,6 +27233,17 @@
 	              'p',
 	              null,
 	              'We\'re a group of CS students at Purdue who are passionate about web applications. We believe that the future depends on the liberty to deploy a web application whenever you wish. Help us change the future, just press Pley.'
+	            ),
+	            React.createElement('br', null),
+	            React.createElement('br', null),
+	            React.createElement(
+	              'a',
+	              { href: 'mailto:evanw@purdue.edu' },
+	              React.createElement(
+	                'button',
+	                null,
+	                'Contact Us'
+	              )
 	            )
 	          )
 	        )
