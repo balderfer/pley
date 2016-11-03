@@ -12,7 +12,7 @@ class Docs extends React.Component {
   render() {
     return (
       <div className='docs'>
-        <h1>Docs!</h1>
+        <h1>Docs! Does it work?</h1>
       </div>
     );
   }
