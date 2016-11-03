@@ -21513,15 +21513,10 @@
 
 	      var verificationCreationUrl = '/verify';
 
-	      $.ajax({
-	        type: 'POST',
-	        url: verificationCreationUrl,
-	        data: {
-	          email: this.props.verificationEmail
-	        },
-	        success: function success(data) {
-	          console.log('post success! data:', data);
-	        }
+	      $.post(verificationCreationUrl, {
+	        email: this.props.verificationEmail
+	      }, function (data) {
+	        console.log('posted! data:', data);
 	      });
 	    }
 	  }, {
