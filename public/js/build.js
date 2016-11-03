@@ -26665,9 +26665,515 @@
 	        'div',
 	        { className: 'docs' },
 	        React.createElement(
-	          'h1',
-	          null,
-	          'Docs!'
+	          'div',
+	          { className: 'container' },
+	          React.createElement(
+	            'div',
+	            { className: 'columns' },
+	            React.createElement(
+	              'div',
+	              { className: 'left' },
+	              React.createElement(
+	                'ul',
+	                { className: 'sidenav' },
+	                React.createElement(
+	                  'a',
+	                  { href: '#Introduction_' },
+	                  React.createElement(
+	                    'li',
+	                    { className: 'listHeader' },
+	                    'Introduction'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Purpose_of_Pley_' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Purpose of Pley'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Overview_of_documentation' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Overview of documentation'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Accessing_the_service' },
+	                  React.createElement(
+	                    'li',
+	                    { className: 'listHeader' },
+	                    'Accessing the service'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#From_the_Purdue_domain_' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'From the Purdue domain'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#From_the_CS_Department_website_' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'From the CS Department website'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Deploying_an_Application' },
+	                  React.createElement(
+	                    'li',
+	                    { className: 'listHeader' },
+	                    'Deploying an Application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Containerizing_application_source_code' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Containerizing application source code'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Pushing_source_code_to_the_Pley_platform' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Pushing source code to the Pley platform'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Taking_an_application_live_on_the_internet' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Taking an application live on the internet'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#View_an_applications_IP_address' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'View an application\u2019s IP address'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Maintaining_an_Application' },
+	                  React.createElement(
+	                    'li',
+	                    { className: 'listHeader' },
+	                    'Maintaining an Application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#View_the_status_of_a_deployed_application' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'View the status of a deployed application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#View_a_list_of_deployed_applications_you_own' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'View a list of deployed applications you own'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Delete_a_deployed_application' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Delete a deployed application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Protect_an_application_with_authentication' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Protect an application with authentication'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Pause_and_resume_a_deployed_application' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Pause and resume a deployed application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#View_an_applications_log' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'View an application\u2019s log'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Revert_to_a_previous_deployment_of_an_application' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Revert to a previous deployment of an application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Add_collaborators_to_an_application' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Add collaborators to an application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Customize_the_subdomain_for_an_application' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Customize the subdomain for an application'
+	                  )
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { href: '#Use_a_custom_domain_for_an_application' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    'Use a custom domain for an application'
+	                  )
+	                )
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'right' },
+	              React.createElement(
+	                'h2',
+	                null,
+	                'Documentation'
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Introduction_', className: 'section section-header' },
+	                React.createElement(
+	                  'h3',
+	                  null,
+	                  'Introduction'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Purpose_of_Pley_', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Purpose of Pley'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Overview_of_documentation', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Overview of documentation'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Accessing_the_service', className: 'section section-header' },
+	                React.createElement(
+	                  'h3',
+	                  null,
+	                  'Accessing the service'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'From_the_Purdue_domain_', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'From the Purdue domain'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'From_the_CS_Department_website_', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'From the CS Department website'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Deploying_an_Application', className: 'section section-header' },
+	                React.createElement(
+	                  'h3',
+	                  null,
+	                  'Deploying an Application'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Containerizing_application_source_code', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Containerizing application source code'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Pushing_source_code_to_the_Pley_platform', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Pushing source code to the Pley platform'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Taking_an_application_live_on_the_internet', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Taking an application live on the internet'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'View_an_applications_IP_address', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'View an application\u2019s IP address'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Maintaining_an_Application', className: 'section section-header' },
+	                React.createElement(
+	                  'h3',
+	                  null,
+	                  'Maintaining an Application'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'View_the_status_of_a_deployed_application', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'View the status of a deployed application'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'View_a_list_of_deployed_applications_you_own', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'View a list of deployed applications you own'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Delete_a_deployed_application', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Delete a deployed application'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Protect_an_application_with_authentication', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Protect an application with authentication'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Pause_and_resume_a_deployed_application', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Pause and resume a deployed application'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'View_an_applications_log', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'View an application\u2019s log'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Revert_to_a_previous_deployment_of_an_application', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Revert to a previous deployment of an application'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Add_collaborators_to_an_application', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Add collaborators to an application'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Customize_the_subdomain_for_an_application', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Customize the subdomain for an application'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { id: 'Use_a_custom_domain_for_an_application', className: 'section' },
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  'Use a custom domain for an application'
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  'TODO: Write this documentation.'
+	                )
+	              )
+	            )
+	          )
 	        )
 	      );
 	    }

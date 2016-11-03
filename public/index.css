@@ -53,9 +53,9 @@ html, body {
   font-size: 20px;
 }
 
-.hero {
+.hero, .docs, .contact {
   width: 100vw;
-  margin-top: 4rem;
+  margin-top: 2rem;
   box-sizing: border-box;
 }
 
@@ -73,14 +73,38 @@ html, body {
   margin-bottom: 1.5rem;
 }
 
-.hero .text-container h1 {
+h1 {
   font-weight: 900;
   font-size: 5rem;
   color: #333333;
   margin-bottom: 1.5rem;
 }
 
-.hero .text-container p {
+h2 {
+  font-weight: 900;
+  font-size: 3rem;
+  color: #333333;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-weight: 900;
+  font-size: 2rem;
+  color: #333333;
+  background-color: #ffd100;
+  display: inline;
+  padding: 0 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #333333;
+  margin-bottom: 0.5rem;
+}
+
+p {
   line-height: 1.5em;
   font-size: 1rem;
   color: #666666;
@@ -137,12 +161,8 @@ input:focus {
   margin-right: 1rem;
 }
 
-.hero .text-container p.small {
+p.small {
   font-size: 0.75rem;
-}
-
-.hero .emailMessage p {
-
 }
 
 .container {
@@ -195,4 +215,57 @@ input:focus {
 .layout .header .brand img {
   width: 60px;
   height: 60px;
+}
+
+.columns .left {
+  display: inline-block;
+  vertical-align: top;
+  width: 30%;
+}
+
+.columns .right {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 5%;
+  width: 65%;
+  overflow: scroll;
+}
+
+.sidenav a:first-of-type .listHeader {
+  margin-top: 0;
+}
+
+.sidenav a {
+  font-size: 0.6rem;
+  text-decoration: none;
+  color: #333;
+}
+
+.sidenav a:hover {
+  color: #ffd100;
+}
+
+.sidenav li {
+  margin-bottom: 0.5rem;
+}
+
+.sidenav a .listHeader {
+  margin-top: 1.5rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #333333;
+}
+
+.docs .section {
+  padding: 2rem 0;
+}
+
+.docs .section.section-header {
+  margin-top: 6rem;
+}
+
+.docs .section.section-header:first-of-type {
+  margin-top: 0;
 }
