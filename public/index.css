@@ -55,8 +55,7 @@ html, body {
 
 .hero {
   width: 100vw;
-  height: 100vh;
-  padding: 8rem;
+  margin-top: 4rem;
   box-sizing: border-box;
 }
 
@@ -71,22 +70,23 @@ html, body {
 .hero .text-container {
   display: inline-block;
   width: 420px;
+  margin-bottom: 1.5rem;
 }
 
 .hero .text-container h1 {
   font-weight: 900;
   font-size: 5rem;
   color: #333333;
+  margin-bottom: 1.5rem;
 }
 
 .hero .text-container p {
-  margin: 1.5rem 0;
-  line-height: 1.5rem;
+  line-height: 1.5em;
   font-size: 1rem;
   color: #666666;
 }
 
-.hero .text-container button {
+button {
   padding: 1rem;
   background-color: #ffd100;
   border: none;
@@ -97,30 +97,102 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 3px;
   color: #333333;
-  box-shadow: 0 2px 4px #999999;
+  box-shadow: 0 0 2px #ffffff;
   transition: all 0.25s ease;
 
   margin-bottom: 1.5em;
 }
 
-.hero .text-container button:hover {
+button:hover {
   transition: all 0.25s ease;
-  transform: translate3d(0, 1px, 0);
+  transform: translate3d(0, -1px, 0);
   background-color: #FFDA33;
-  box-shadow: 0 1px 2px #666666;
+  box-shadow: 0 2px 4px #666666;
   cursor: pointer;
 }
 
-.hero .text-container .email-textbox {
-  display: inline-block;
+input {
+  padding: 1rem;
+  border: none;
   outline: none;
-  padding: 8px 4px;
-
-  width: 300px;
-  transition: all 0.5s ease;
   border-radius: 6px;
-  border: 2px solid black;
-
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #333333;
+  width: 16rem;
+  box-shadow: 0 0px 4px #ffffff, inset 0 0 1px #666666;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+input:focus {
+  box-shadow: 0 2px 4px #999999;
+  transition: all 0.25s ease;
+}
+
+.hero .emailForm input, .hero .emailForm button {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.hero .text-container p.small {
+  font-size: 0.75rem;
+}
+
+.hero .emailMessage p {
+
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.layout .header {
+  padding: 20px 0;
+}
+
+.layout .header ul {
+  height: 60px;
+}
+
+.layout .header a {
+  cursor: pointer;
+}
+
+.layout .header li {
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 1rem;
+  height: 60px;
+}
+
+
+.layout .header .link {
+  padding: 20px  1rem;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #333333;
+  box-shadow: 0 0 2px #ffffff;
+  transition: all 0.25s ease;
+}
+
+.layout .header .link:hover {
+  transition: all 0.25s ease;
+  transform: translate3d(0, -1px, 0);
+  box-shadow: 0 2px 4px #666666;
+  cursor: pointer;
+}
+
+
+.layout .header .brand img {
+  width: 60px;
+  height: 60px;
 }

@@ -2,12 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-
 const Verify = require('./verify');
 
-router.get('/', (req, res) => {
-  res.render('index');
-});
 
 router.post('/verify', (req, res) => {
   if (!req.body || !req.body.email) {
@@ -24,6 +20,10 @@ router.post('/verify', (req, res) => {
       }
     });
   }
+});
+
+router.get(['/', '/docs', '/contact'], (req, res) => {
+  res.render('index');
 });
 
 module.exports = router;

@@ -4,6 +4,11 @@ import React, { PropTypes } from 'react';
 class Landing extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      navState: 'LANDING',
+      email: ''
+    };
   }
 
   sendVerificationEmail() {
@@ -13,76 +18,70 @@ class Landing extends React.Component {
     const verificationCreationUrl = '/verify';
 
     $.post(verificationCreationUrl, {
-      email: this.props.verificationEmail
+      email: this.state.email
     }, (data) => {
-      console.log('posted! data:',data);
+      console.log('posted! data:', data);
     });
   }
 
-  getContent() {
-    if (this.props.navState === 'LANDING') {
+  setNavState(newNavState) {
+    this.setState({
+      navState: newNavState
+    });
+  }
+
+  setEmail(newEmail) {
+    this.setState({
+      email: newEmail
+    });
+  }
+
+  renderMessage() {
+    if (this.state.navState === 'SENT') {
       return (
-        <a>
-          <button
-            onClick={() => {
-              this.props.setNavState('EMAIL');
-            }}>
-            Get Started &rarr;
-          </button>
-        </a>
+        <div className="text-container">
+          <p className="small">
+            &#10003; We{'\''}ve sent you an email with a verification link in it.
+            Please open it and click on the link so we can ensure you{'\''}re a Purdue student.
+          </p>
+        </div>
       );
-    } else if (this.props.navState === 'EMAIL') {
-      return (
-        <a>
-          <input type="text" className="email-textbox" placeholder="Email"
-            onChange={e => {
-              this.props.setVerificationEmail(e.target.value);
-            }}
-            value={this.props.verificationEmail}></input>
-          <button
-            onClick={() => {
-              this.sendVerificationEmail();
-              this.props.setNavState('SENT');
-            }}>
-            Let{'\''}s Go &rarr;
-          </button>
-        </a>
-      );
-    } else if (this.props.navState === 'SENT') {
-      return <div>
-              <p>
-                &#10003; We{'\''}ve sent you an email with a verification link in it.
-                Please open it and click on the link so we can ensure you{'\''}re a Purdue student.
-              </p>
-            </div>;
     }
   }
 
   render() {
     return (
       <div className="hero">
-        <img src="./logo.svg" alt="Pley Logo"/>
-        <div className="text-container">
-          <h1>Pley</h1>
-          <p>
-            Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast.
-          </p>
-          {this.getContent()}
-          <br></br>
-          <a href="mailto:usb@cs.purdue.edu">
-            <button>Contact Us</button>
-          </a>
+        <div className="container">
+          <div className="text-container">
+            <h1>Pley</h1>
+            <p>
+              Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast.
+            </p>
+          </div>
+          <div className="emailForm">
+            <input
+              type="text"
+              className="emailInput"
+              placeholder="Email"
+              onChange={e => {
+                this.setEmail(e.target.value);
+              }}
+              value={this.state.email}
+            />
+            <button
+              onClick={() => {
+                this.sendVerificationEmail();
+                this.setNavState('SENT');
+              }}>
+              Sign Up &rarr;
+            </button>
+          </div>
+          {this.renderMessage()}
         </div>
       </div>
     );
   }
 }
-
-Landing.propTypes = {
-  navState: PropTypes.string,
-  verificationEmail: PropTypes.string,
-  setNavState: PropTypes.func,
-  setVerificationEmail: PropTypes.func
-};
 
 module.exports = Landing;

@@ -1,6 +1,13 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const Router = require('react-router').Router;
+const Route = require('react-router').Route;
+const IndexRoute = require('react-router').IndexRoute;
+const browserHistory = require('react-router').browserHistory;
+const Layout = require('./components/layout.jsx');
 const Landing = require('./components/landing.jsx');
+const Docs = require('./components/docs.jsx');
+const Contact = require('./components/contact.jsx');
 
 class App extends React.Component {
   constructor(props) {
@@ -27,9 +34,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Layout>
+        <Router history={browserHistory}>
+          <Route path="/" component={Landing}/>
+          <Route path="/docs" component={Docs} />
+          <Route path="/contact" component={Contact} />
         {this.getLanding()}
-      </div>
+        </Router>
+      </Layout>
     );
   }
 }
