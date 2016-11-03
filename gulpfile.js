@@ -5,7 +5,6 @@ const livereload = require('gulp-livereload');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass');
 const webpack = require('webpack-stream');
-const babel = require('gulp-babel');
 
 const Jasmine = require('jasmine');
 
@@ -57,13 +56,13 @@ gulp.task('test', function() {
   const jasmine = new Jasmine();
 
   jasmine.loadConfig({
-      spec_dir: '/',
-      spec_files: [
-          config.jsSpecPath,
-      ],
-      helpers: [
-          'helpers/**/*.js'
-      ]
+    spec_dir: '/',
+    spec_files: [
+      config.jsSpecPath,
+    ],
+    helpers: [
+      'helpers/**/*.js'
+    ]
   });
 
   // Run the jasmine tests (Tests all files that end in [sS]pec.js).

@@ -32,6 +32,6 @@
       "always"
     ],
     // Flag on console logs in code. Useful for prod.
-    // "no-console" : 0
+    "no-console" : 0
   }
 }

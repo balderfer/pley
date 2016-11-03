@@ -1,1 +1,10 @@
 node_modules
+.DS_Store
+*.log
+dist
+.env
+Sublime.sublime-workspace
+public/js/**/*
+public/css/**/*
+npm-debug.*
+

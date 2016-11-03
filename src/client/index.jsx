@@ -8,6 +8,7 @@ class App extends React.Component {
     this.state = {
       displayEmail: false,
       navState: 'LANDING',
+      verificationEmail: '',
     };
   }
 
@@ -17,9 +18,10 @@ class App extends React.Component {
 
   getLanding() {
     return <Landing
-      displayEmail={this.state.displayEmail}
+      verificationEmail={this.state.verificationEmail}
       navState={this.state.navState}
       setNavState={navState => this.setState({navState})}
+      setVerificationEmail={verificationEmail => this.setState({verificationEmail})}
     />;
   }
 

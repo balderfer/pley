@@ -68,7 +68,8 @@
 
 	    _this.state = {
 	      displayEmail: false,
-	      navState: 'LANDING'
+	      navState: 'LANDING',
+	      verificationEmail: ''
 	    };
 	    return _this;
 	  }
@@ -82,10 +83,13 @@
 	      var _this2 = this;
 
 	      return React.createElement(Landing, {
-	        displayEmail: this.state.displayEmail,
+	        verificationEmail: this.state.verificationEmail,
 	        navState: this.state.navState,
 	        setNavState: function setNavState(navState) {
 	          return _this2.setState({ navState: navState });
+	        },
+	        setVerificationEmail: function setVerificationEmail(verificationEmail) {
+	          return _this2.setState({ verificationEmail: verificationEmail });
 	        }
 	      });
 	    }
@@ -21476,7 +21480,7 @@
 /* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -21495,50 +21499,115 @@
 	var Landing = function (_React$Component) {
 	  _inherits(Landing, _React$Component);
 
-	  function Landing() {
+	  function Landing(props) {
 	    _classCallCheck(this, Landing);
 
-	    return _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).call(this, props));
 	  }
 
 	  _createClass(Landing, [{
-	    key: "render",
+	    key: 'sendVerificationEmail',
+	    value: function sendVerificationEmail() {
+	      // TODO:
+	      console.log('Send them an email.');
+
+	      var verificationCreationUrl = '/verify';
+
+	      $.ajax({
+	        type: 'POST',
+	        url: verificationCreationUrl,
+	        data: {
+	          email: this.props.verificationEmail
+	        },
+	        success: function success(data) {
+	          console.log('post success! data:', data);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'getContent',
+	    value: function getContent() {
+	      var _this2 = this;
+
+	      if (this.props.navState === 'LANDING') {
+	        return _react2.default.createElement(
+	          'a',
+	          null,
+	          _react2.default.createElement(
+	            'button',
+	            {
+	              onClick: function onClick() {
+	                _this2.props.setNavState('EMAIL');
+	              } },
+	            'Get Started \u2192'
+	          )
+	        );
+	      } else if (this.props.navState === 'EMAIL') {
+	        return _react2.default.createElement(
+	          'a',
+	          null,
+	          _react2.default.createElement('input', { type: 'text', className: 'email-textbox', placeholder: 'Email',
+	            onChange: function onChange(e) {
+	              _this2.props.setVerificationEmail(e.target.value);
+	            },
+	            value: this.props.verificationEmail }),
+	          _react2.default.createElement(
+	            'button',
+	            {
+	              onClick: function onClick() {
+	                _this2.sendVerificationEmail();
+	                _this2.props.setNavState('SENT');
+	              } },
+	            'Let',
+	            '\'',
+	            's Go \u2192'
+	          )
+	        );
+	      } else if (this.props.navState === 'SENT') {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            '\u2713 We',
+	            '\'',
+	            've sent you an email with a verification link in it. Please open it and click on the link so we can ensure you',
+	            '\'',
+	            're a Purdue student.'
+	          )
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "hero" },
-	        _react2.default.createElement("img", { src: "./logo.svg", alt: "Pley Logo" }),
+	        'div',
+	        { className: 'hero' },
+	        _react2.default.createElement('img', { src: './logo.svg', alt: 'Pley Logo' }),
 	        _react2.default.createElement(
-	          "div",
-	          { className: "text-container" },
+	          'div',
+	          { className: 'text-container' },
 	          _react2.default.createElement(
-	            "h1",
+	            'h1',
 	            null,
-	            "Pley"
+	            'Pley'
 	          ),
 	          _react2.default.createElement(
-	            "p",
+	            'p',
 	            null,
-	            "Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast."
+	            'Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast.'
 	          ),
-	          _react2.default.createElement("input", { type: "text", className: "email-textbox  js-email-textbox" }),
+	          this.getContent(),
+	          _react2.default.createElement('br', null),
 	          _react2.default.createElement(
-	            "a",
-	            { className: "get-started  js-get-started" },
+	            'a',
+	            { href: 'mailto:usb@cs.purdue.edu' },
 	            _react2.default.createElement(
-	              "button",
+	              'button',
 	              null,
-	              "Get Started \u2192"
-	            )
-	          ),
-	          _react2.default.createElement("br", null),
-	          _react2.default.createElement(
-	            "a",
-	            { href: "mailto:evanw@purdue.edu" },
-	            _react2.default.createElement(
-	              "button",
-	              null,
-	              "Contact Us"
+	              'Contact Us'
 	            )
 	          )
 	        )
@@ -21550,9 +21619,10 @@
 	}(_react2.default.Component);
 
 	Landing.propTypes = {
-	  displayEmail: _react.PropTypes.bool,
 	  navState: _react.PropTypes.string,
-	  setNavState: _react.PropTypes.func
+	  verificationEmail: _react.PropTypes.string,
+	  setNavState: _react.PropTypes.func,
+	  setVerificationEmail: _react.PropTypes.func
 	};
 
 	module.exports = Landing;

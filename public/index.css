@@ -111,19 +111,16 @@ html, body {
   cursor: pointer;
 }
 
-.hero .text-container .js-slide {
-  /*padding-left: 20rem;*/
-  
-  transition: all 0.5s ease;
-}
+.hero .text-container .email-textbox {
+  display: inline-block;
+  outline: none;
+  padding: 8px 4px;
 
-.hero .text-container .js-email-textbox {
-  opacity: 0;
-  width: 0;
-}
-
-.hero .text-container .js-email-textbox .js-appear{
-  opacity: 1;
-  width: 20rem;
+  width: 300px;
   transition: all 0.5s ease;
+  border-radius: 6px;
+  border: 2px solid black;
+
+  font-size: 0.8rem;
+  font-weight: 500;
 }
