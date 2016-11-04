@@ -73,6 +73,10 @@ html, body {
   margin-bottom: 1.5rem;
 }
 
+.text-container .red-text {
+  color: red;
+}
+
 h1 {
   font-weight: 900;
   font-size: 5rem;

@@ -4,7 +4,7 @@ node_modules
 dist
 .env
 Sublime.sublime-workspace
+public/js/build.js
 public/js/**/*
 public/css/**/*
 npm-debug.*
-
