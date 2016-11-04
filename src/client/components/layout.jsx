@@ -6,10 +6,6 @@ class Layout extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    
-  }
-
   render() {
     return (
       <div className='layout'>

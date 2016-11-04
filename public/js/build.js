@@ -26418,9 +26418,6 @@
 	  }
 
 	  _createClass(Layout, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
@@ -26479,7 +26476,7 @@
 	                  React.createElement(
 	                    'button',
 	                    null,
-	                    'Sign Up'
+	                    'Sign In'
 	                  )
 	                )
 	              )
