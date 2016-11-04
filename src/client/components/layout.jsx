@@ -33,7 +33,7 @@ class Layout extends React.Component {
               </Link>
               <Link to="#">
                 <li>
-                    <button>Sign Up</button>
+                    <button>Sign In</button>
                 </li>
               </Link>
             </ul>
