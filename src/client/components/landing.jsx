@@ -90,7 +90,7 @@ class Landing extends React.Component {
             <div className="text-container">
               <h1>Pley</h1>
               <p>
-                Change for demo. Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast.
+                Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast.
               </p>
             </div>
             <div className="emailForm">
