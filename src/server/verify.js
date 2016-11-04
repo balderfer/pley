@@ -2,6 +2,8 @@
 
 const crypto = require('crypto');
 
+const mailer = require('./mailer');
+
 class Verify {
   constructor() {
     // TODO: Connect to mongodb
@@ -10,7 +12,7 @@ class Verify {
   create(email, done) {
     if (this.verifyPurdueEmail(email)) {
       this.createVerificationToken((token) => {
-        console.log('token created:',token);
+        mailer.sendVerificationEmail(email, token);
         done(true);
       });
     } else {
@@ -28,7 +30,7 @@ class Verify {
   verifyPurdueEmail(purdueEmail) {
     const purdueEmailRegex = new RegExp('@purdue.edu\s*$');
 
-    return false;//purdueEmailRegex.test(purdueEmail);
+    return purdueEmailRegex.test(purdueEmail);
   }
 }
 

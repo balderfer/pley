@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 const Verify = require('./verify');
 
-
 router.post('/verify', (req, res) => {
   if (!req.body || !req.body.email) {
     res.status = 400;
@@ -19,6 +18,12 @@ router.post('/verify', (req, res) => {
         res.send('Failure');
       }
     });
+  }
+});
+
+router.get('/verify/:token', (req, res) => {
+  if(req.params && req.params.token) {
+    console.log('Do something with this token:', req.params.token);
   }
 });
 

@@ -20,6 +20,7 @@
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "log-timestamp": "^0.1.2",
+    "nodemailer": "^2.6.4",
     "react-router": "^3.0.0",
     "uuid": "^2.0.3"
   },
