@@ -1,5 +1,6 @@
 
 import React, { PropTypes } from 'react';
+const Layout = require('./layout.jsx');
 
 class Landing extends React.Component {
   constructor(props) {
@@ -51,35 +52,37 @@ class Landing extends React.Component {
 
   render() {
     return (
-      <div className="hero">
-        <div className="container">
-          <div className="text-container">
-            <h1>Pley</h1>
-            <p>
-              Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast.
-            </p>
+      <Layout>
+        <div className="hero">
+          <div className="container">
+            <div className="text-container">
+              <h1>Pley</h1>
+              <p>
+                Pley is a free web application hosting service for Purdue students, built by Purdue students. Get your website up and running so fast.
+              </p>
+            </div>
+            <div className="emailForm">
+              <input
+                type="text"
+                className="emailInput"
+                placeholder="Email"
+                onChange={e => {
+                  this.setEmail(e.target.value);
+                }}
+                value={this.state.email}
+              />
+              <button
+                onClick={() => {
+                  this.sendVerificationEmail();
+                  this.setNavState('SENT');
+                }}>
+                Sign Up &rarr;
+              </button>
+            </div>
+            {this.renderMessage()}
           </div>
-          <div className="emailForm">
-            <input
-              type="text"
-              className="emailInput"
-              placeholder="Email"
-              onChange={e => {
-                this.setEmail(e.target.value);
-              }}
-              value={this.state.email}
-            />
-            <button
-              onClick={() => {
-                this.sendVerificationEmail();
-                this.setNavState('SENT');
-              }}>
-              Sign Up &rarr;
-            </button>
-          </div>
-          {this.renderMessage()}
         </div>
-      </div>
+      </Layout>
     );
   }
 }

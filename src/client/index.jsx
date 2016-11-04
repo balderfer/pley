@@ -34,14 +34,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <Layout>
-        <Router history={browserHistory}>
-          <Route path="/" component={Landing}/>
-          <Route path="/docs" component={Docs} />
-          <Route path="/about" component={About} />
-        {this.getLanding()}
-        </Router>
-      </Layout>
+      <Router history={browserHistory}>
+        <Route path="/" component={Landing}/>
+        <Route path="/docs" component={Docs} />
+        <Route path="/about" component={About} />
+      {this.getLanding()}
+      </Router>
     );
   }
 }

@@ -1,4 +1,5 @@
 const React = require('react');
+const Link = require('react-router').Link;
 
 class Layout extends React.Component {
   constructor(props) {
@@ -15,21 +16,26 @@ class Layout extends React.Component {
         <div className="header">
           <div className="container">
             <ul>
-              <a href="/">
+              <Link to="/">
                 <li className="brand">
                     <img src="./logo.svg" alt="Pley Logo"/>
                 </li>
-              </a>
-              <a href="/docs">
+              </Link>
+              <Link to="/docs">
                 <li className="link">
                     <p>Docs</p>
                 </li>
-              </a>
-              <a href="/about">
+              </Link>
+              <Link to="/about">
                 <li className="link">
                     <p>About</p>
                 </li>
-              </a>
+              </Link>
+              <Link to="#">
+                <li>
+                    <button>Sign Up</button>
+                </li>
+              </Link>
             </ul>
           </div>
         </div>
