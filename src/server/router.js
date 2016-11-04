@@ -11,11 +11,11 @@ router.post('/verify', (req, res) => {
     res.end('Incorrect parameters.');
   } else {
     Verify.create(req.body.email, (success) => {
-      if(success) {
-        res.status = 200;
+      if (success) {
+        res.status(200);
         res.send('Success');
       } else {
-        res.status = 400;
+        res.status(400);
         res.send('Failure');
       }
     });

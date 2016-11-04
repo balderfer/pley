@@ -26,7 +26,9 @@ class Verify {
   }
 
   verifyPurdueEmail(purdueEmail) {
-    return purdueEmail;
+    const purdueEmailRegex = new RegExp('@purdue.edu\s*$');
+
+    return false;//purdueEmailRegex.test(purdueEmail);
   }
 }
 
