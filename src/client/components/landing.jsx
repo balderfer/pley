@@ -16,7 +16,6 @@ class Landing extends React.Component {
     const verificationCreationUrl = '/verify';
 
     const purdueEmailRegex = new RegExp('@purdue.edu\s*$');
-    console.log('state:');
 
     if (!purdueEmailRegex.test(this.state.email)) {
       // On an invalid email, display a message and get outta here!
@@ -32,7 +31,6 @@ class Landing extends React.Component {
       }, error: () => {
         this.setNavState('FAILED_REQUEST');
       }}).done((data, status, xhr) => {
-        console.log('status:',xhr.status);
         if (xhr.status != 200) {
           this.setNavState('FAILED_REQUEST');
         } else {
