@@ -37,7 +37,7 @@ class Mailer {
         // TODO: Make some callback for this.
         // return console.log(error);
       }
-      // console.log('Message sent: ' + info.response);
+      console.log('Message sent: ' + info.response);
     });
   }
 }

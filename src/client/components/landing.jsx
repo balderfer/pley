@@ -1,10 +1,11 @@
-
 import React, { PropTypes } from 'react';
 const Layout = require('./layout.jsx');
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
+
+    // console.log(document.cookie);
 
     this.state = {
       navState: 'LANDING',

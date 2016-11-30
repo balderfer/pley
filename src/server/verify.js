@@ -3,6 +3,16 @@
 const crypto = require('crypto');
 
 const mailer = require('./mailer');
+const mongoClient = require('mongodb').MongoClient;
+
+const constants = require('./constants');
+// Use connect method to connect to the Server
+// MongoClient.connect(url, function(err, db) {
+//   assert.equal(null, err);
+//   console.log("Connected correctly to server");
+
+//   db.close();
+// });
 
 class Verify {
   constructor() {
@@ -13,6 +23,14 @@ class Verify {
     if (this.verifyPurdueEmail(email)) {
       this.createVerificationToken((token) => {
         mailer.sendVerificationEmail(email, token);
+
+        // Set the token in our database for that user's email.
+        // var template = sync.await(db.collection('sdfv').findOne({
+        //   _id: id
+        // }, {
+        //   _id: 1
+        // }, sync.defer()));
+
         done(true);
       });
     } else {
