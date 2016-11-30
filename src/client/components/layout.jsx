@@ -27,9 +27,9 @@ class Layout extends React.Component {
                     <p>About</p>
                 </li>
               </Link>
-              <Link to="#">
+              <Link to="/login">
                 <li>
-                    <button>Sign In</button>
+                    <button>Sign in</button>
                 </li>
               </Link>
             </ul>

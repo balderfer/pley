@@ -2,6 +2,18 @@
 
 const crypto = require('crypto');
 
+const mailer = require('./mailer');
+const mongoClient = require('mongodb').MongoClient;
+
+const constants = require('./constants');
+// Use connect method to connect to the Server
+// MongoClient.connect(url, function(err, db) {
+//   assert.equal(null, err);
+//   console.log("Connected correctly to server");
+
+//   db.close();
+// });
+
 class Verify {
   constructor() {
     // TODO: Connect to mongodb
@@ -10,7 +22,15 @@ class Verify {
   create(email, done) {
     if (this.verifyPurdueEmail(email)) {
       this.createVerificationToken((token) => {
-        console.log('token created:',token);
+        mailer.sendVerificationEmail(email, token);
+
+        // Set the token in our database for that user's email.
+        // var template = sync.await(db.collection('sdfv').findOne({
+        //   _id: id
+        // }, {
+        //   _id: 1
+        // }, sync.defer()));
+
         done(true);
       });
     } else {
@@ -28,7 +48,7 @@ class Verify {
   verifyPurdueEmail(purdueEmail) {
     const purdueEmailRegex = new RegExp('@purdue.edu\s*$');
 
-    return false;//purdueEmailRegex.test(purdueEmail);
+    return purdueEmailRegex.test(purdueEmail);
   }
 }
 

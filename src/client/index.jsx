@@ -1,13 +1,19 @@
+// External Libraries.
+// import './lib/fetch.min.js';
+
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Router = require('react-router').Router;
 const Route = require('react-router').Route;
 const IndexRoute = require('react-router').IndexRoute;
 const browserHistory = require('react-router').browserHistory;
+
+// Local components.
 const Layout = require('./components/layout.jsx');
 const Landing = require('./components/landing.jsx');
 const Docs = require('./components/docs.jsx');
 const About = require('./components/about.jsx');
+const Login = require('./components/login.jsx');
 
 class App extends React.Component {
   constructor(props) {
@@ -30,14 +36,15 @@ class App extends React.Component {
       setNavState={navState => this.setState({navState})}
       setVerificationEmail={verificationEmail => this.setState({verificationEmail})}
     />;
-  }
-
+  } 
   render() {
     return (
       <Router history={browserHistory}>
         <Route path="/" component={Landing}/>
-        <Route path="/docs" component={Docs} />
-        <Route path="/about" component={About} />
+        <Route path="/docs" component={Docs}/>
+        <Route path="/about" component={About}/>
+        <Route path="/login" component={Login} 
+          setNavState={navState => this.setState({navState})}/>
       {this.getLanding()}
       </Router>
     );
