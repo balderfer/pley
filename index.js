@@ -2,7 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+
 const routing = require('./src/server/router');
+var db = require('./src/server/db');
 
 const app = express();
 
@@ -35,6 +37,12 @@ app.use('/',  express.static('./public'));
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function() {
-  console.log('Listening on port:', port);
+// Initialize the db connection, start the server afterwords.
+db.connectToDatabase((err) => {
+  if (err)
+    throw err;
+
+  app.listen(port, () => {
+    console.log('Listening on port:', port);
+  });
 });

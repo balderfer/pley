@@ -3,18 +3,15 @@
 const crypto = require('crypto');
 
 const mailer = require('./mailer');
-const db = require('./db');
+
+var mongodb = require('./db');
 
 class Verify {
-  constructor() {
-    // TODO: Connect to mongodb
-  }
-
   create(email, done) {
     if (email && this.verifyPurdueEmail(email.toLowerCase())) {
       this.createVerificationToken((token) => {
         // Create the user in our database and give them a login token.
-        db.collection('users').update({
+        mongodb.db().collection('users').update({
           email: email
         }, {
           email: email,

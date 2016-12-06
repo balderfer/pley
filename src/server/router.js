@@ -53,25 +53,33 @@ router.get('/dashboard', (req, res) => {
 });
 
 router.get(['/', '/docs', '/about', '/login'], (req, res) => {
-  // console.log('cookies:',req.cookies);
+  console.log('user\'s session:',req.session);
+
   res.render('index');
 });
 
 // TODO: Put some kind of limiter on this.
 router.post('/login', (req, res) => {
   if (req.body && req.body.email && req.body.password) {
-    Auth.login(req, req.body.email, req.body.password, (success) => {
-      if (success) {
-        res.status(200);
-        res.end('Success');
+    Auth.login(req, req.body.email, req.body.password, (user) => {
+      if (user) {
+        res.status(200).end({
+          email: user.email,
+          name: user.name
+        });
       } else {
-        res.send(401, 'Invalid email/password.');
+        res.status(401).end('Invalid email/password.');
       }
     });
   } else {
-    res.status(400);
-    res.end('Must supply email/password.');
+    res.status(400).end('Must supply email/password.');
   }
+});
+
+router.get('/logout', (req, res) => {
+  req.session.user = null;
+
+  res.redirect('/');
 });
 
 module.exports = router;

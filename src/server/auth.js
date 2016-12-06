@@ -5,7 +5,7 @@
  */
 const bcrypt = require('bcrypt');
 
-const db = require('./db');
+var mongodb = require('./db');
 
 /* Recommended as of 2014. */
 const saltRounds = 10;
@@ -15,30 +15,36 @@ class Auth {
    * callback (success)
    */
   login(req, email, password, callback) {
-    console.log('Log in', email, 'with password', password);
-
     // Find the user's hashed password in the DB.
-    db.collection('users').find({
+    mongodb.db().collection('users').findOne({
       email: email,
       verifiedAt: {$exists: true}
     }, {
       hashedPassword: 1,
       email: 1,
       name: 1
-    }, (err, result) => {
+    }, (err, user) => {
       console.log('logun err:',err);
-      console.log('logun result:',result);
-      if (result && result.hashedPassword) {
-        // Compare the two hashed passwords.
-        bcrypt.compare(password, result.hashedPassword).then((match) => {
-          if(match) {
-            req.session.email = result.email;
-            req.session.name = result.name;
-            req.session.loggedIn = true;
-          }
+      console.log('logun user:',user);
 
-          callback(match);
+      if (user && user.hashedPassword) {
+        // Compare the two hashed passwords.
+        bcrypt.compare(password, user.hashedPassword).then((match) => {
+          if(match) {
+            req.session.user = {
+              email: user.email,
+              name: user.name
+            };
+
+            return {
+              email: user.email,
+              name: user.name
+            }
+          }
         });
+      } else {
+        // No match in db for email with a verified account.
+        callback(false);
       }
     });
   }
