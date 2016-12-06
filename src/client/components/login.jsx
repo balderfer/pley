@@ -17,7 +17,8 @@ class Login extends React.Component {
       email: '',
       password: '',
       loadingDots: '',
-      inLoginRequest: false
+      inLoginRequest: false,
+      unsuccessfulLoginAttempt: false
     };
   }
 
@@ -27,6 +28,12 @@ class Login extends React.Component {
 
   login(email, password) {
     console.log('Log them in!');
+
+    if (this.state.unsuccessfulLoginAttempt) {
+      this.setState({
+        unsuccessfulLoginAttempt: false
+      });
+    }
 
     this.setInLoginRequest(true);
     this.setLoginState('LOGGING_IN');
@@ -44,9 +51,10 @@ class Login extends React.Component {
       this.setInLoginRequest(false);
       if(response.status === 200) {
         return response.json();
-      } else if(response.status === 401) {
-        this.setLoginState('INPUT');
-      } else if(response.status === 400) {
+      } else {
+        this.setState({
+          unsuccessfulLoginAttempt: true
+        });
         this.setLoginState('INPUT');
       }
     }).then((json) => {
@@ -83,6 +91,12 @@ class Login extends React.Component {
     });
   }
 
+  getLoginMessage() {
+    if (this.state.unsuccessfulLoginAttempt) {
+      return 'Invalid email or password';
+    }
+  }
+
   renderLoginStatus() {
     if (this.state.loginState === 'INPUT') {
       return (
@@ -93,6 +107,12 @@ class Login extends React.Component {
             placeholder="Email"
             onChange={e => {
               this.setEmail(e.target.value);
+
+              if (this.state.unsuccessfulLoginAttempt) {
+                this.setState({
+                  unsuccessfulLoginAttempt: false
+                });
+              }
             }}
             value={this.state.email}
           />
@@ -103,10 +123,15 @@ class Login extends React.Component {
             placeholder="Password"
             onChange={e => {
               this.setPassword(e.target.value);
+
+              if (this.state.unsuccessfulLoginAttempt) {
+                this.setState({
+                  unsuccessfulLoginAttempt: false
+                });
+              }
             }}
             value={this.state.password}
           />
-          <p className="inputNote"></p>
           <button
             onClick={() => {
               if(!this.state.inLoginRequest) {
@@ -115,6 +140,8 @@ class Login extends React.Component {
             }}>
             Sign In &rarr;
           </button>
+          <br/>
+          <a className="loginMessage">{this.getLoginMessage()}</a>
         </div>
       );
     } else if (this.state.loginState === 'LOGGING_IN') {

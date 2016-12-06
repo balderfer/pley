@@ -12,7 +12,8 @@ class Verify {
       this.createVerificationToken((token) => {
         // Create the user in our database and give them a login token.
         mongodb.db().collection('users').update({
-          email: email
+          email: email,
+          verifiedAt: {$exists: false}
         }, {
           email: email,
           createdAt: Date.now(),
@@ -49,8 +50,8 @@ class Verify {
    * @return true or false, depending on if the token exists for the email.
    */
   verifyToken(email, token, done) {
-    // Create the user in our database and give them a login token.
-    db.collection('users').update({
+    // Create the user in our database and verify their login token.
+    mongodb.db().collection('users').update({
       email: email,
       verificationToken: token,
 
