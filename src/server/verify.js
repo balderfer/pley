@@ -3,16 +3,7 @@
 const crypto = require('crypto');
 
 const mailer = require('./mailer');
-const mongoClient = require('mongodb').MongoClient;
-
-const constants = require('./constants');
-// Use connect method to connect to the Server
-// MongoClient.connect(url, function(err, db) {
-//   assert.equal(null, err);
-//   console.log("Connected correctly to server");
-
-//   db.close();
-// });
+const db = require('./db');
 
 class Verify {
   constructor() {
@@ -20,18 +11,27 @@ class Verify {
   }
 
   create(email, done) {
-    if (this.verifyPurdueEmail(email)) {
+    if (email && this.verifyPurdueEmail(email.toLowerCase())) {
       this.createVerificationToken((token) => {
-        mailer.sendVerificationEmail(email, token);
+        // Create the user in our database and give them a login token.
+        db.collection('users').update({
+          email: email
+        }, {
+          email: email,
+          createdAt: Date.now(),
+          verificationToken: token,
+          verified: false
+        }, {
+          upsert: true
+        }, (err, result) => {
+          if (err) {
+            done(false);
+          } else {
+            done(true);
 
-        // Set the token in our database for that user's email.
-        // var template = sync.await(db.collection('sdfv').findOne({
-        //   _id: id
-        // }, {
-        //   _id: 1
-        // }, sync.defer()));
-
-        done(true);
+            mailer.sendVerificationEmail(email, token);
+          }
+        });
       });
     } else {
       done(false);
@@ -42,6 +42,33 @@ class Verify {
     crypto.randomBytes(48, (ex, buf) => {
       const token = buf.toString('base64').replace(/\//g,'_').replace(/\+/g,'-');
       callback(token);
+    });
+  }
+
+  /**
+   * @return true or false, depending on if the token exists for the email.
+   */
+  verifyToken(email, token, done) {
+    // Create the user in our database and give them a login token.
+    db.collection('users').update({
+      email: email,
+      verificationToken: token,
+
+      // When a password exists for the account, we know they have gone through signup already.
+      verifiedAt: {$exists: false}
+    }, {
+      verifiedAt: Date.now()
+    }, {
+      upsert: true
+    }, (err, result) => {
+      console.log('err:', err);
+      console.log('result:', result);
+
+      if (err) {
+        done(false);
+      } else {
+        done(true);
+      }
     });
   }
 

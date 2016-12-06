@@ -3,14 +3,42 @@
 /**
  * This handles logins with a token.
  */
+const bcrypt = require('bcrypt');
+
+/* Recommended as of 2014. */
+const saltRounds = 10;
 
 class Auth {
   /**
-   * callback (err, token)
+   * callback (success)
    */
-  login(email, password, callback) {
-    console.log('Log in',email,'with password',password);
-    callback(null /* No error. */, '13254twedsf23421');
+  login(req, email, password, callback) {
+    console.log('Log in', email, 'with password', password);
+
+    // Find the user's hashed password in the DB.
+    db.collection('users').find({
+      email: email,
+      verifiedAt: {$exists: true}
+    }, {
+      hashedPassword: 1,
+      email: 1,
+      name: 1
+    }, (err, result) => {
+      console.log('logun err:',err);
+      console.log('logun result:',result);
+      if (result && result.hashedPassword) {
+        // Compare the two hashed passwords.
+        bcrypt.compare(password, result.hashedPassword).then((match) => {
+          if(match) {
+            req.session.email = result.email;
+            req.session.name = result.name;
+            req.session.loggedIn = true;
+          }
+
+          callback(match);
+        });
+      }
+    })
   }
 }
 

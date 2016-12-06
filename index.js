@@ -1,5 +1,4 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
@@ -15,7 +14,7 @@ require('log-timestamp');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+
 app.use(session({
   secret: 'ult1m4t3 53cr3t',
   resave: true,

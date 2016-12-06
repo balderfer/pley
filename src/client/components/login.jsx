@@ -54,14 +54,14 @@ class Login extends React.Component {
       }
     }).then((json) => {
       if(json && json.token) {
-        console.log('Assigning token:', json.token);
+        // console.log('Assigning token:', json.token);
 
-        const cookieLength = 1000 /* 1000 days from now. */ *24*60*60*1000;
-        const expiresDate = new Date();
-        expiresDate.setTime(Date.now() + cookieLength);
-        const expiresString = 'expires=' + expiresDate.toUTCString();
+        // const cookieLength = 1000 /* 1000 days from now. */ *24*60*60*1000;
+        // const expiresDate = new Date();
+        // expiresDate.setTime(Date.now() + cookieLength);
+        // const expiresString = 'expires=' + expiresDate.toUTCString();
 
-        document.cookie = 'pleyCoin=' + json.token + '; ' + expiresString;
+        // document.cookie = 'pleyCoin=' + json.token + '; ' + expiresString;
 
         // Redirect to the main page.
         Router.browserHistory.push('/');
@@ -69,7 +69,7 @@ class Login extends React.Component {
         // this.props.route.setNavState('LANDING');
       }
     }).catch((ex) => {
-      console.log('parsing failed', ex)
+      console.log('parsing failed', ex);
     });
   }
 
