@@ -15,8 +15,6 @@
     "node": "6.6.0"
   },
   "dependencies": {
-    "async": "^2.1.2",
-    "asyncawait": "^1.0.6",
     "bcrypt": "^1.0.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",

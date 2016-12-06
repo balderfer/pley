@@ -24,6 +24,9 @@ class Verify {
         }, {
           upsert: true
         }, (err, result) => {
+          console.log('created token err:',err);
+          console.log('created token result',result);
+
           if (err) {
             done(false);
           } else {

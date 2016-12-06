@@ -60,7 +60,7 @@ router.get(['/', '/docs', '/about', '/login'], (req, res) => {
 // TODO: Put some kind of limiter on this.
 router.post('/login', (req, res) => {
   if (req.body && req.body.email && req.body.password) {
-    Auth.login(req.body.email, req.body.password, (success) => {
+    Auth.login(req, req.body.email, req.body.password, (success) => {
       if (success) {
         res.status(200);
         res.end('Success');

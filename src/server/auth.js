@@ -5,6 +5,8 @@
  */
 const bcrypt = require('bcrypt');
 
+const db = require('./db');
+
 /* Recommended as of 2014. */
 const saltRounds = 10;
 
@@ -38,7 +40,7 @@ class Auth {
           callback(match);
         });
       }
-    })
+    });
   }
 }
 
