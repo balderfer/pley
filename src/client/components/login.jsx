@@ -22,10 +22,6 @@ class Login extends React.Component {
     };
   }
 
-  componentDidMount() {
-    
-  }
-
   login(email, password) {
     console.log('Log them in!');
 
