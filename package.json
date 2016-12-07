@@ -15,11 +15,14 @@
     "node": "6.6.0"
   },
   "dependencies": {
-    "async": "^2.1.2",
+    "bcrypt": "^1.0.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.14.2",
     "log-timestamp": "^0.1.2",
+    "mongodb": "^2.2.11",
+    "mongojs": "^2.4.0",
     "nodemailer": "^2.6.4",
     "react-router": "^3.0.0",
     "uuid": "^2.0.3"

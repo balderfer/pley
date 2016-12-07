@@ -5,6 +5,7 @@ Installation
 ------------
 
 Install node js from https://nodejs.org/en/download/
+Install MongoDB from https://www.mongodb.com/
 
 ```bash
 $ npm install -g gulp-cli
@@ -20,6 +21,7 @@ Deployment
 #### Development
 
 ```bash
+$ mongod --dbpath=/data --port 27017 #Start the MongoDB database.
 $ npm start
 $ browser http://localhost:3000
 ```

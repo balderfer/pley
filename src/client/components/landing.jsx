@@ -1,6 +1,8 @@
-
 import React, { PropTypes } from 'react';
+
+const Router = require('react-router');
 const Layout = require('./layout.jsx');
+const Dashboard = require('./dashboard.jsx');
 
 class Landing extends React.Component {
   constructor(props) {
@@ -12,9 +14,12 @@ class Landing extends React.Component {
     };
   }
 
-  sendVerificationEmail() {
-    const verificationCreationUrl = '/verify';
+  componentWillUpdate(nextProps, nextState) {
 
+  }
+
+  sendVerificationEmail() {
+    const verificationCreationUrl = '/signup';
     const purdueEmailRegex = new RegExp('@purdue.edu\s*$');
 
     if (!purdueEmailRegex.test(this.state.email)) {
@@ -24,7 +29,7 @@ class Landing extends React.Component {
     }
     this.setNavState('SENT');
 
-    $.post({ 
+    $.post({
       url: verificationCreationUrl, 
       data: {
         email: this.state.email
@@ -81,6 +86,8 @@ class Landing extends React.Component {
   }
 
   render() {
+    if (this.state.auth) return <Dashboard router={Router}/>;
+
     return (
       <Layout>
         <div className="hero">
