@@ -5,7 +5,7 @@
  */
 const bcrypt = require('bcrypt');
 
-var mongodb = require('./db');
+var db = require('./db');
 
 /* Recommended as of 2014. */
 const saltRounds = 10;
@@ -16,7 +16,7 @@ class Auth {
    */
   login(req, email, password, callback) {
     // Find the user's hashed password in the DB.
-    mongodb.db().collection('users').findOne({
+    db.collection('users').findOne({
       email: email,
       verifiedAt: {$exists: true}
     }, {
