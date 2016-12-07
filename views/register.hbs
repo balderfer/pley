@@ -20,6 +20,7 @@
     <br/>
     <input name="passwordVerification" type="password" class="passwordInput" placeholder="Re-enter password" minlength="6" maxlength="24"/>
     <br/>
+    <input name="token" type="text" class="emailInput" readonly hidden value="{{verifyToken}}"/>
     <button type="submit">Register &rarr;</button>
     <br/>
     {{#if registerMessage}}

@@ -8,7 +8,6 @@ var db = require('./db');
 
 class Verify {
   create(email, done) {
-    console.log(email);
     if (email && this.verifyPurdueEmail(email.toLowerCase())) {
       this.createVerificationToken((token) => {
         // Create the user in our database and give them a login token.
@@ -29,9 +28,8 @@ class Verify {
           if (err) {
             done(false);
           } else if(result && result.nModified === 1) {
-            done(true);
-
             mailer.sendVerificationEmail(email, token);
+            done(true);
           } else {
             done(false);
           }
@@ -61,17 +59,19 @@ class Verify {
       // When a password exists for the account, we know they have gone through signup already.
       verifiedAt: {$exists: false}
     }, {
-      verifiedAt: Date.now()
-    }, {
-      upsert: true
-    }, (err, result) => {
+      $set: {
+        verifiedAt: Date.now()
+      }
+     }, (err, result) => {
       if (err) {
+        console.log('Error verifying token:', err);
         done(false);
       } else if(result && result.nModified === 1) {
         done(true);
 
-        mailer.sendVerificationEmail(email, token);
+        // mailer.sendVerificationEmail(email, token);
       } else {
+        console.log('Error verifying token:', err);
         done(false);
       }
     });

@@ -53,7 +53,8 @@ class Login extends React.Component {
         });
         this.setLoginState('INPUT');
       }
-    }).then((json) => {
+    }).then((jsonString) => {
+      var json = JSON.parse(jsonString);
       if(json && json.user) {
         // Redirect to the main page.
         Router.browserHistory.push('/');

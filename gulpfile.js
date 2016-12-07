@@ -5,6 +5,7 @@ const livereload = require('gulp-livereload');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass');
 const webpack = require('webpack-stream');
+const babel = require('gulp-babel');
 
 const Jasmine = require('jasmine');
 
@@ -23,7 +24,9 @@ const config = {
     '!src/**/*.spec.js'
   ],
   sharedJsPath: 'src/shared/**/*.js',
-  serverJsPath: ['src/server/**/*.js'],
+  serverJsPath: ['src/server/es5/**/*.js'],
+  serverES6Path: ['src/server/es6/**/*.js'],
+  serverES5Dir: 'src/server/es5/',
   serverJsEntry: 'src/server/index.js',
   serverJsDestDir: './'
 };
@@ -49,7 +52,7 @@ const webpackConfig = {
 
 gulp.task('testDev', ['test'], function() {
   // Watch for changes in the test files and test accordingly.
-  gulp.watch([config.jsSpecPath], ['test']);
+  // gulp.watch([config.jsSpecPath], ['test']);
 });
 
 gulp.task('test', function() {
@@ -70,10 +73,11 @@ gulp.task('test', function() {
 });
 
 gulp.task('dev', function() {
-  gulp.watch([config.jsPath, 'index.jsx', 'gulpfile.js' /* That's me! */], []);
+  // gulp.watch([config.jsPath, 'index.jsx', 'gulpfile.js' /* That's me! */], ['lint']);
 
   // Watch for clientside changes and run building tasks.
   gulp.watch([config.clientJsPath, config.sharedJsPath], ['js']);
+  gulp.watch(config.serverES6Path, ['babel']);
 
   // Watch for changes in the dependencies for clientside and build accordingly.
   gulp.watch([config.jsDependPath], ['jsClientDependencies']);
@@ -127,6 +131,17 @@ gulp.task('js', function() {
     })
     .pipe(concat('build.js'))
     .pipe(gulp.dest(config.jsDestDir));
+});
+
+gulp.task('babel', function () {
+  return gulp.src(config.serverES6Path)
+    // .pipe(sourcemaps.init())
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    // .pipe(sourcemaps.write('.',
+    //   { sourceRoot: paths.sourceRoot }))
+    .pipe(gulp.dest(config.serverES5Dir));
 });
 
 gulp.task('server', function() {

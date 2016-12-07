@@ -14,6 +14,7 @@ class Mailer {
 
   sendVerificationEmail(email, token) {
     const verifyUrl = `http://pley.usb.cs.purdue.edu/register?token=${token}&email=${email}`;
+    console.log('verifyUrl:', verifyUrl);
 
     const emailHTMLContent = 
     `<b>Hello! Welcome to Pley.</b>
@@ -35,7 +36,7 @@ class Mailer {
     this.transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         // TODO: Make some callback for this.
-        // return console.log(error);
+        return console.log(error);
       }
       console.log('Message sent: ' + info.response);
     });

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 
-const routing = require('./src/server/router');
+const routing = require('./src/server/es5/router');
 
 const app = express();
 
