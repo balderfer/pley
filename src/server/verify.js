@@ -8,6 +8,7 @@ var db = require('./db');
 
 class Verify {
   create(email, done) {
+    console.log(email);
     if (email && this.verifyPurdueEmail(email.toLowerCase())) {
       this.createVerificationToken((token) => {
         // Create the user in our database and give them a login token.

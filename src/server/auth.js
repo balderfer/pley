@@ -14,7 +14,15 @@ class Auth {
   /**
    * callback (success)
    */
-  login(req, email, password, callback) {
+  login(req, res) {
+
+    if (!(req.body && req.body.email && req.body.password)) {
+      res.status(400);
+    }
+
+    var email = req.body.email;
+    var password = req.body.password;
+
     // Find the user's hashed password in the DB.
     db.collection('users').findOne({
       email: email,
@@ -24,8 +32,6 @@ class Auth {
       email: 1,
       name: 1
     }, (err, user) => {
-      console.log('logun err:',err);
-      console.log('logun user:',user);
 
       if (user && user.hashedPassword) {
         // Compare the two hashed passwords.
@@ -36,15 +42,17 @@ class Auth {
               name: user.name
             };
 
-            return {
+            res.status(200).end({
               email: user.email,
               name: user.name
-            };
+            });
+          } else {
+            res.status(401).end('Invalid email/password.');
           }
         });
       } else {
         // No match in db for email with a verified account.
-        callback(false);
+        res.status(401).end('Invalid email/password.');
       }
     });
   }

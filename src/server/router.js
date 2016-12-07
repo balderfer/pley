@@ -5,6 +5,21 @@ const router = express.Router();
 const Verify = require('./verify');
 const Auth = require('./auth');
 
+// TODO: Don't use this.
+router.get('/verify/:token', (req, res) => {
+  if(req.params && req.params.token && req.query.email) {
+    console.log('Do something with this token:', req.params.token);
+
+    Verify.verifyToken(req.query.email, req.params.token, (success) => {
+      if (success) {
+        res.send('Success! You may now close this page.');
+      } else {
+        res.send('Error verifying account. Please try again.');
+      }
+    }); 
+  }
+});
+
 router.post('/signup', (req, res) => {
   if (!req.body || !req.body.email) {
     res.status = 400;
@@ -98,26 +113,10 @@ router.get(['/', '/docs', '/about', '/login'], (req, res) => {
 });
 
 // TODO: Put some kind of limiter on this.
-router.post('/login', (req, res) => {
-  if (req.body && req.body.email && req.body.password) {
-    Auth.login(req, req.body.email, req.body.password, (user) => {
-      if (user) {
-        res.status(200).end({
-          email: user.email,
-          name: user.name
-        });
-      } else {
-        res.status(401).end('Invalid email/password.');
-      }
-    });
-  } else {
-    res.status(400).end('Must supply email/password.');
-  }
-});
+router.post('/login', Auth.login);
 
 router.get('/logout', (req, res) => {
   req.session.user = null;
-
   res.redirect('/');
 });
 

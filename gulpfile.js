@@ -9,7 +9,7 @@ const webpack = require('webpack-stream');
 const Jasmine = require('jasmine');
 
 const config = {
-  sassPath: 'src/styles/**/*.scss',
+  sassPath: 'src/styles/index.scss',
   cssDestDir: 'public/css',
   jsClientEntry: 'src/client/index.jsx',
   jsClientDependencies: 'src/client/lib/**/*.js',
@@ -70,7 +70,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('dev', function() {
-  gulp.watch([config.jsPath, 'index.jsx', 'gulpfile.js' /* That's me! */], ['lint']);
+  gulp.watch([config.jsPath, 'index.jsx', 'gulpfile.js' /* That's me! */], []);
 
   // Watch for clientside changes and run building tasks.
   gulp.watch([config.clientJsPath, config.sharedJsPath], ['js']);

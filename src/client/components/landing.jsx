@@ -15,7 +15,12 @@ class Landing extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-
+    var pleyCoin = document.cookie.replace(/(?:(?:^|.*;\s*)pleyCoin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if (this.state.auth !== !!pleyCoin) {
+      this.setState({
+        auth: !!pleyCoin
+      });
+    }
   }
 
   sendVerificationEmail() {
