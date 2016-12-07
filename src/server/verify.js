@@ -27,10 +27,12 @@ class Verify {
 
           if (err) {
             done(false);
-          } else {
+          } else if(result && result.nModified === 1) {
             done(true);
 
             mailer.sendVerificationEmail(email, token);
+          } else {
+            done(false);
           }
         });
       });
@@ -62,13 +64,14 @@ class Verify {
     }, {
       upsert: true
     }, (err, result) => {
-      console.log('err:', err);
-      console.log('result:', result);
-
       if (err) {
         done(false);
-      } else {
+      } else if(result && result.nModified === 1) {
         done(true);
+
+        mailer.sendVerificationEmail(email, token);
+      } else {
+        done(false);
       }
     });
   }

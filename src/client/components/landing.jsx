@@ -8,27 +8,18 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
 
-    var pleyCoin = document.cookie.replace(/(?:(?:^|.*;\s*)pleyCoin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
     this.state = {
       navState: 'LANDING',
-      email: '',
-      auth: !!pleyCoin
+      email: ''
     };
   }
 
   componentWillUpdate(nextProps, nextState) {
-    var pleyCoin = document.cookie.replace(/(?:(?:^|.*;\s*)pleyCoin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    if (auth !== !!pleyCoin) {
-      this.setState({
-        auth: !!pleyCoin
-      });
-    }
+
   }
 
   sendVerificationEmail() {
-    const verificationCreationUrl = '/verify';
-
+    const verificationCreationUrl = '/signup';
     const purdueEmailRegex = new RegExp('@purdue.edu\s*$');
 
     if (!purdueEmailRegex.test(this.state.email)) {
@@ -38,7 +29,7 @@ class Landing extends React.Component {
     }
     this.setNavState('SENT');
 
-    $.post({ 
+    $.post({
       url: verificationCreationUrl, 
       data: {
         email: this.state.email

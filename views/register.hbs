@@ -1,0 +1,30 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pley</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="/index.css">
+  <link rel='icon' type='image/png' href='/favicon.png'/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+  <form class="registerForm" action="/register" method="post">
+    Sign up for Pley
+    <br/>
+    <input name="email" type="text" class="emailInput" readonly value="{{userEmail}}"/>
+    <br/>
+    <input name="name" type="text" class="nameInput" placeholder="Name"/>
+    <br/>
+    <input name="password" type="password" class="passwordInput" placeholder="Password" minlength="6" maxlength="24"/>
+    <br/>
+    <input name="passwordVerification" type="password" class="passwordInput" placeholder="Re-enter password" minlength="6" maxlength="24"/>
+    <br/>
+    <button type="submit">Register &rarr;</button>
+    <br/>
+    {{#if registerMessage}}
+      <a class="registerMessage">{{registerMessage}}</a>
+    {{/if}}
+  </form>
+</body>
+</html>

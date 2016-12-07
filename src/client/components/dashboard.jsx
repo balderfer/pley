@@ -3,13 +3,10 @@ import React, { PropTypes } from 'react';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-
-    this.resetCookie = this.resetCookie.bind(this);
   }
 
-  resetCookie() {
-    document.cookie = "pleyCoin=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    this.props.router.browserHistory.push("/");
+  logout() {
+    window.location.href = '/logout';
   }
 
   render() {
@@ -17,7 +14,7 @@ class Dashboard extends React.Component {
       <div>
         <h1>Dashboard!</h1>
         <button
-          onClick={this.resetCookie}>
+          onClick={this.logout}>
           Sign Out
         </button>
       </div>

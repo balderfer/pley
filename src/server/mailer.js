@@ -13,13 +13,13 @@ class Mailer {
   }
 
   sendVerificationEmail(email, token) {
-    const verifyUrl = 'pley.usb.cs.purdue.edu';
+    const verifyUrl = `http://pley.usb.cs.purdue.edu/register?token=${token}&email=${email}`;
 
     const emailHTMLContent = 
     `<b>Hello! Welcome to Pley.</b>
     <br>
     To get started, please click this button:
-    <a href=${verifyUrl}/verify/${token}&email=${email} target="_blank">
+    <a href="${verifyUrl}" target="_blank">
       <button style="background: #ffd100;border: 1px solid black; outline:none; border-radius: 6px; padding: 20px;">Get started</button>
     </a>`;
 

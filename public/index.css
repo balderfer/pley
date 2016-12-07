@@ -276,3 +276,11 @@ p.small {
 .loginMessage {
   color: red;
 }
+
+.registerForm {
+  text-align: center;
+}
+
+.registerMessage {
+  color: red;
+}
