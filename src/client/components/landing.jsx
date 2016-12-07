@@ -1,16 +1,29 @@
 import React, { PropTypes } from 'react';
+
+const Router = require('react-router');
 const Layout = require('./layout.jsx');
+const Dashboard = require('./dashboard.jsx');
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
 
-    // console.log(document.cookie);
+    var pleyCoin = document.cookie.replace(/(?:(?:^|.*;\s*)pleyCoin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
     this.state = {
       navState: 'LANDING',
-      email: ''
+      email: '',
+      auth: !!pleyCoin
     };
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    var pleyCoin = document.cookie.replace(/(?:(?:^|.*;\s*)pleyCoin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if (auth !== !!pleyCoin) {
+      this.setState({
+        auth: !!pleyCoin
+      });
+    }
   }
 
   sendVerificationEmail() {
@@ -82,6 +95,8 @@ class Landing extends React.Component {
   }
 
   render() {
+    if (this.state.auth) return <Dashboard router={Router}/>;
+
     return (
       <Layout>
         <div className="hero">
