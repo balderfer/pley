@@ -17,12 +17,19 @@ class Login extends React.Component {
       email: '',
       password: '',
       loadingDots: '',
-      inLoginRequest: false
+      inLoginRequest: false,
+      unsuccessfulLoginAttempt: false
     };
   }
 
   login(email, password) {
     console.log('Log them in!');
+
+    if (this.state.unsuccessfulLoginAttempt) {
+      this.setState({
+        unsuccessfulLoginAttempt: false
+      });
+    }
 
     this.setInLoginRequest(true);
     this.setLoginState('LOGGING_IN');
@@ -40,32 +47,19 @@ class Login extends React.Component {
       this.setInLoginRequest(false);
       if(response.status === 200) {
         return response.json();
-        // console.log('response:',);
-        // Save the token locally.
-        // $window.sessionStorage.token = response.body.;
-      } else if(response.status === 401) {
-        this.setLoginState('INPUT');
-      } else if(response.status === 400) {
+      } else {
+        this.setState({
+          unsuccessfulLoginAttempt: true
+        });
         this.setLoginState('INPUT');
       }
     }).then((json) => {
-      if(json && json.token) {
-        console.log('Assigning token:', json.token);
-
-        const cookieLength = 1000 /* 1000 days from now. */ *24*60*60*1000;
-        const expiresDate = new Date();
-        expiresDate.setTime(Date.now() + cookieLength);
-        const expiresString = 'expires=' + expiresDate.toUTCString();
-
-        document.cookie = 'pleyCoin=' + json.token + '; ' + expiresString;
-
+      if(json && json.user) {
         // Redirect to the main page.
         Router.browserHistory.push('/');
-        // console.log('props', this.props);
-        // this.props.route.setNavState('LANDING');
       }
     }).catch((ex) => {
-      console.log('parsing failed', ex)
+      console.log('parsing failed', ex);
     });
   }
 
@@ -93,6 +87,12 @@ class Login extends React.Component {
     });
   }
 
+  getLoginMessage() {
+    if (this.state.unsuccessfulLoginAttempt) {
+      return 'Invalid email or password';
+    }
+  }
+
   renderLoginStatus() {
     if (this.state.loginState === 'INPUT') {
       return (
@@ -103,6 +103,12 @@ class Login extends React.Component {
             placeholder="Email"
             onChange={e => {
               this.setEmail(e.target.value);
+
+              if (this.state.unsuccessfulLoginAttempt) {
+                this.setState({
+                  unsuccessfulLoginAttempt: false
+                });
+              }
             }}
             value={this.state.email}
           />
@@ -113,10 +119,15 @@ class Login extends React.Component {
             placeholder="Password"
             onChange={e => {
               this.setPassword(e.target.value);
+
+              if (this.state.unsuccessfulLoginAttempt) {
+                this.setState({
+                  unsuccessfulLoginAttempt: false
+                });
+              }
             }}
             value={this.state.password}
           />
-          <p className="inputNote"></p>
           <button
             onClick={() => {
               if(!this.state.inLoginRequest) {
@@ -125,6 +136,8 @@ class Login extends React.Component {
             }}>
             Sign In &rarr;
           </button>
+          <br/>
+          <a className="loginMessage">{this.getLoginMessage()}</a>
         </div>
       );
     } else if (this.state.loginState === 'LOGGING_IN') {

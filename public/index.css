@@ -272,3 +272,7 @@ p.small {
 .docs .section.section-header:first-of-type {
   margin-top: 0;
 }
+
+.loginMessage {
+  color: red;
+}
