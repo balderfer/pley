@@ -43,7 +43,16 @@ class Login extends React.Component {
       })
       .withCredentials()
       .end((err, res) => {
-        Router.browserHistory.push('/');
+        if (err || res.statusCode !== 200) {
+          this.setState({
+            unsuccessfulLoginAttempt: true
+          });
+
+          this.setInLoginRequest(false);
+          this.setLoginState('INPUT');
+        } else {
+          Router.browserHistory.push('/');
+        }
       });
   }
 

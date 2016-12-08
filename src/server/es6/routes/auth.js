@@ -31,7 +31,7 @@ export default class Auth {
               });
             });
           } else {
-            res.status(401).send('Invalid email/password.');
+            res.status(401).end('Invalid email/password.');
           }
         });
       } else {
