@@ -14,12 +14,17 @@ class Landing extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.checkCookie();
+  }
+
   componentWillUpdate(nextProps, nextState) {
-    var pleyCoin = document.cookie.replace(/(?:(?:^|.*;\s*)pleyCoin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    if (this.state.auth !== !!pleyCoin) {
-      this.setState({
-        auth: !!pleyCoin
-      });
+    this.checkCookie();
+  }
+
+  checkCookie() {
+    if (page.data.user._id) {
+      Router.browserHistory.push('/dashboard');
     }
   }
 

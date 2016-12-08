@@ -1,4 +1,4 @@
-import './../lib/fetch-min.js';
+const request = require('superagent');
 
 const React = require('react');
 const Router = require('react-router');
@@ -34,34 +34,17 @@ class Login extends React.Component {
     this.setInLoginRequest(true);
     this.setLoginState('LOGGING_IN');
 
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    request
+      .post('/login')
+      .set('Content-Type', 'application/json')
+      .send({
         email: email,
-        password: password,
+        password: password
       })
-    }).then((response) => {
-      this.setInLoginRequest(false);
-      if(response.status === 200) {
-        return response.json();
-      } else {
-        this.setState({
-          unsuccessfulLoginAttempt: true
-        });
-        this.setLoginState('INPUT');
-      }
-    }).then((jsonString) => {
-      var json = JSON.parse(jsonString);
-      if(json && json.user) {
-        // Redirect to the main page.
+      .withCredentials()
+      .end((err, res) => {
         Router.browserHistory.push('/');
-      }
-    }).catch((ex) => {
-      console.log('parsing failed', ex);
-    });
+      });
   }
 
   setLoginState(newLoginState) {

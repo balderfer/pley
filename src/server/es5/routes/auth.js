@@ -23,7 +23,6 @@ var Auth = function () {
   _createClass(Auth, null, [{
     key: 'login',
     value: function login(req, res) {
-
       if (!(req.body && req.body.email && req.body.password)) {
         res.status(400);
       }
@@ -37,14 +36,16 @@ var Auth = function () {
           // Compare the two hashed passwords.
           _collections.Users.authenticate(user, password, function (match) {
             if (match) {
-              var userObject = {
-                email: user.email,
-                name: user.name
-              };
-              req.session.user = userObject;
-              res.status(200).end(JSON.stringify(userObject));
+              req.session.reload(function (err) {
+                req.session.user = user;
+                req.session.save(function (err) {
+                  console.log(req.session);
+                  res.status(200);
+                  res.end();
+                });
+              });
             } else {
-              res.status(401).end('Invalid email/password.');
+              res.status(401).send('Invalid email/password.');
             }
           });
         } else {
@@ -64,7 +65,7 @@ var Auth = function () {
     value: function signup(req, res) {
       if (!req.body || !req.body.email) {
         res.status = 400;
-        res.end('Incorrect parameters.');
+        res.send('Incorrect parameters.');
       } else {
         Verify.create(req.body.email, function (success) {
           if (success) {

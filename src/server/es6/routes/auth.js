@@ -9,7 +9,6 @@ import { Users } from '../collections';
 export default class Auth {
 
   static login(req, res) {
-
     if (!(req.body && req.body.email && req.body.password)) {
       res.status(400);
     }
@@ -23,14 +22,16 @@ export default class Auth {
         // Compare the two hashed passwords.
         Users.authenticate(user, password, (match) => {
           if (match) {
-            var userObject = {
-              email: user.email,
-              name: user.name
-            };
-            req.session.user = userObject;
-            res.status(200).end(JSON.stringify(userObject));
+            req.session.reload((err) => {
+              req.session.user = user;
+              req.session.save((err) => {
+                console.log(req.session);
+                res.status(200);
+                res.end();
+              });
+            });
           } else {
-            res.status(401).end('Invalid email/password.');
+            res.status(401).send('Invalid email/password.');
           }
         });
       } else {
@@ -48,7 +49,7 @@ export default class Auth {
   static signup(req, res) {
     if (!req.body || !req.body.email) {
       res.status = 400;
-      res.end('Incorrect parameters.');
+      res.send('Incorrect parameters.');
     } else {
       Verify.create(req.body.email, (success) => {
         if (success) {

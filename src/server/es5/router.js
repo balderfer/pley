@@ -17,7 +17,9 @@ router.get('/dashboard', function (req, res) {
       applications: [{}]
     });
   } else {
-    res.render('index');
+    res.render('index', {
+      user: JSON.stringify(req.session.user || {})
+    });
   }
 });
 
@@ -30,7 +32,9 @@ router.get(['/register'], function (req, res) {
   return res.render('register');
 });
 router.get(['/', '/docs', '/about', '/login'], function (req, res) {
-  return res.render('index');
+  res.render('index', {
+    user: JSON.stringify(req.session.user || {})
+  });
 });
 
 module.exports = router;

@@ -15,7 +15,9 @@ router.get('/dashboard', (req, res) => {
       applications: [{}]
     });
   } else {
-    res.render('index');
+    res.render('index', {
+      user: JSON.stringify(req.session.user || {})
+    });
   }
 });
 
@@ -25,6 +27,10 @@ router.post('/signup', Auth.signup);
 router.post('/login', Auth.login);
 router.get('/logout', Auth.logout);
 router.get(['/register'], (req, res) => res.render('register'));
-router.get(['/', '/docs', '/about', '/login'], (req, res) => res.render('index'));
+router.get(['/', '/docs', '/about', '/login'], (req, res) => {
+  res.render('index', {
+    user: JSON.stringify(req.session.user || {})
+  });
+});
 
 module.exports = router;

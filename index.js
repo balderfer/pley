@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const exphbs = require('express-handlebars');
-
 const routing = require('./src/server/es5/router');
 
 const app = express();
@@ -13,13 +14,29 @@ const app = express();
  */
 require('log-timestamp');
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser('ult1m4t3 53cr3t'));
 
 app.use(session({
   secret: 'ult1m4t3 53cr3t',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    expires: new Date(Date.now() + 900000),
+    domain: '127.0.0.1:3000'
+  },
+  store: new MongoStore({
+    url: 'mongodb://localhost:27017/pley-sessions'
+  })
 }));
 
 app.use('/', routing);
