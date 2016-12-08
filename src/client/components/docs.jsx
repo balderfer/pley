@@ -30,13 +30,13 @@ class Docs extends React.Component {
                   </li></a>
 
                   <a href="#Accessing_the_service"><li className="listHeader">
-                    Accessing the service
+                    Getting Started
                   </li></a>
                   <a href="#From_the_Purdue_domain_"><li>
-                    From the Purdue domain  
+                    Creating an account
                   </li></a>
                   <a href="#From_the_CS_Department_website_"><li>
-                    From the CS Department website 
+                    The Pley dashboard
                   </li></a>
 
                   <a href="#Deploying_an_Application"><li className="listHeader">
@@ -109,16 +109,16 @@ class Docs extends React.Component {
                 </div>
 
                 <div id="Accessing_the_service" className="section section-header">
-                  <h3>Accessing the service</h3>
+                  <h3>Getting Started</h3>
                 </div>
 
                 <div id="From_the_Purdue_domain_" className="section">
-                  <h4>From the Purdue domain</h4>
+                  <h4>Creating an account</h4>
                   <p>TODO: Write this documentation.</p>
                 </div>
 
                 <div id="From_the_CS_Department_website_" className="section">
-                  <h4>From the CS Department website</h4>
+                  <h4>The Pley dashboard</h4>
                   <p>TODO: Write this documentation.</p>
                 </div>
 

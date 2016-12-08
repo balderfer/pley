@@ -50,7 +50,7 @@ var Auth = function () {
           });
         } else {
           // No match in db for email with a verified account.
-          res.status(401).end('Invalid email/password.');
+          res.status(401).send('Invalid email/password.');
         }
       });
     }
