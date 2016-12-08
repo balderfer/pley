@@ -26,15 +26,14 @@ export default class Auth {
         // Compare the two hashed passwords.
         Users.authenticate(user, password, (match) => {
           if (match) {
-              req.session.user = {
-                _id: user._id,
-                name: user.name
-              };
-              res.status(200);
-              res.end();
-            });
+            req.session.user = {
+              _id: user._id,
+              name: user.name
+            };
+            res.status(200);
+            res.end();
           } else {
-            res.status(401).send('Invalid email/password.');
+            res.status(401).end('Invalid email/password.');
           }
         });
       } else {

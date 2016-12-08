@@ -40,16 +40,14 @@ var Auth = function () {
           // Compare the two hashed passwords.
           _collections.Users.authenticate(user, password, function (match) {
             if (match) {
-              req.session.reload(function (err) {
-                req.session.user = user;
-                req.session.save(function (err) {
-                  console.log(req.session);
-                  res.status(200);
-                  res.end();
-                });
-              });
+              req.session.user = {
+                _id: user._id,
+                name: user.name
+              };
+              res.status(200);
+              res.end();
             } else {
-              res.status(401).send('Invalid email/password.');
+              res.status(401).end('Invalid email/password.');
             }
           });
         } else {
