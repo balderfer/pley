@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 
 const Router = require('react-router');
 const Layout = require('./layout.jsx');
-const Dashboard = require('./dashboard.jsx');
 
 class Landing extends React.Component {
   constructor(props) {
@@ -96,8 +95,6 @@ class Landing extends React.Component {
   }
 
   render() {
-    if (this.state.auth) return <Dashboard router={Router}/>;
-
     return (
       <Layout>
         <div className="hero">

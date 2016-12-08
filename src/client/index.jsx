@@ -14,7 +14,7 @@ const Landing = require('./components/landing.jsx');
 const Docs = require('./components/docs.jsx');
 const About = require('./components/about.jsx');
 const Login = require('./components/login.jsx');
-const Dashboard = require('./components/dashboard.jsx');
+import DashboardPage from './components/dashboard/dashboard-page.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class App extends React.Component {
         <Route path="/about" component={About}/>
         <Route path="/login" component={Login} 
           setNavState={navState => this.setState({navState})}/>
-        <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/dashboard" component={DashboardPage}/>
       {this.getLanding()}
       </Router>
     );

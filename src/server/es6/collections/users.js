@@ -9,11 +9,11 @@ export default class Users {
     this.collection = db.collection('users');
   }
 
-  static findUserByEmail(email, callback) {
+  static findUserByEmail(email, fields, callback) {
     db.collection('users').findOne({
       email: email,
       verifiedAt: {$exists: true}
-    }, (err, user) => {
+    }, fields || {}, (err, user) => {
       if (err) {
         console.log("Error finding user, " + email, err);
       } else {

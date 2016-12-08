@@ -10,7 +10,7 @@ const babel = require('gulp-babel');
 const Jasmine = require('jasmine');
 
 const config = {
-  sassPath: 'src/styles/index.scss',
+  sassPath: 'src/styles/**/*.scss',
   cssDestDir: 'public/css',
   jsClientEntry: 'src/client/index.jsx',
   jsClientDependencies: 'src/client/lib/**/*.js',

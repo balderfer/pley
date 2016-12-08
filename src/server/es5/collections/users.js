@@ -28,11 +28,11 @@ var Users = function () {
 
   _createClass(Users, null, [{
     key: 'findUserByEmail',
-    value: function findUserByEmail(email, callback) {
+    value: function findUserByEmail(email, fields, callback) {
       db.collection('users').findOne({
         email: email,
         verifiedAt: { $exists: true }
-      }, function (err, user) {
+      }, fields || {}, function (err, user) {
         if (err) {
           console.log("Error finding user, " + email, err);
         } else {

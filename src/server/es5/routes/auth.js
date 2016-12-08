@@ -31,7 +31,11 @@ var Auth = function () {
       var password = req.body.password;
 
       // Find the user's hashed password in the DB.
-      _collections.Users.findUserByEmail(email, function (user) {
+      _collections.Users.findUserByEmail(email, {
+        _id: 1,
+        name: 1,
+        hashedPassword: 1
+      }, function (user) {
         if (user && user.hashedPassword) {
           // Compare the two hashed passwords.
           _collections.Users.authenticate(user, password, function (match) {
@@ -50,7 +54,7 @@ var Auth = function () {
           });
         } else {
           // No match in db for email with a verified account.
-          res.status(401).end('Invalid email/password.');
+          res.status(401).end('Cannot find user');
         }
       });
     }

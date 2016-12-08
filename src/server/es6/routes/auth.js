@@ -17,18 +17,21 @@ export default class Auth {
     var password = req.body.password;
 
     // Find the user's hashed password in the DB.
-    Users.findUserByEmail(email, (user) => {
+    Users.findUserByEmail(email, {
+      _id: 1,
+      name: 1,
+      hashedPassword: 1
+    }, (user) => {
       if (user && user.hashedPassword) {
         // Compare the two hashed passwords.
         Users.authenticate(user, password, (match) => {
           if (match) {
-            req.session.reload((err) => {
-              req.session.user = user;
-              req.session.save((err) => {
-                console.log(req.session);
-                res.status(200);
-                res.end();
-              });
+              req.session.user = {
+                _id: user._id,
+                name: user.name
+              };
+              res.status(200);
+              res.end();
             });
           } else {
             res.status(401).send('Invalid email/password.');
@@ -36,7 +39,7 @@ export default class Auth {
         });
       } else {
         // No match in db for email with a verified account.
-        res.status(401).end('Invalid email/password.');
+        res.status(401).end('Cannot find user');
       }
     });
   }
