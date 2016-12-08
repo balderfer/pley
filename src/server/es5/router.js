@@ -22,16 +22,19 @@ var router = express.Router();
 //     });
 //   }
 // });
+router.post('/api/app/create', _routes.Project.create);
+router.post('/api/app/all', _routes.Project.getProjectsForUser);
+router.post('/api/app/:projectId', _routes.Project.get);
 
 router.get('/register', _routes.Auth.getRegister);
 router.post('/register', _routes.Auth.postRegister);
 router.post('/signup', _routes.Auth.signup);
 router.post('/login', _routes.Auth.login);
 router.get('/logout', _routes.Auth.logout);
-router.get(['/register'], function (req, res) {
+router.get('/register', function (req, res) {
   return res.render('register');
 });
-router.get(['/', '/docs', '/about', '/login', '/dashboard', '/dashboard/new'], function (req, res) {
+router.get('*', function (req, res) {
   res.render('index', {
     user: JSON.stringify(req.session.user || {})
   });

@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import DashboardPage from './dashboard-page.jsx';
+const request = require('superagent');
 
 export default class DashboardProjectContainer extends React.Component {
   constructor(props) {
@@ -11,15 +13,28 @@ export default class DashboardProjectContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.loadProject(page.data.activeProject);
+    this.loadProject(this.props.params.projectId);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.loadProject(newProps.params.projectId);
   }
 
   loadProject(projectId) {
-    console.log(projectId);
     if (projectId == null) {
       this.setState({
         pageState: "empty"
       });
+    } else {
+      request
+        .post('/api/app/' + projectId)
+        .withCredentials()
+        .end((err, res) => {
+          this.setState({
+            pageState: "loaded",
+            project: JSON.parse(res.text)
+          });
+        });
     }
   }
 
@@ -56,7 +71,7 @@ export default class DashboardProjectContainer extends React.Component {
         <div className="text-box">
           <h2>Getting Started</h2>
           <p>Pley makes it easy for you to publish your applications on the internet. Create your first project to get started!</p>
-          <a href="/dashboard/new"><button>Create Application</button></a>
+          <Link to="/dashboard/new"><button>Create Application</button></Link>
           <p>Still need help? Check out our <a href="/docs">docs</a>.</p>
         </div>
       </div>
@@ -65,7 +80,15 @@ export default class DashboardProjectContainer extends React.Component {
 
   renderLoaded() {
     return (
-      <h1>Loaded</h1>
+      <div className="project-container-loaded">
+        <div className="dashboard-header dashboard-header-light">
+          <div className="breadcrumbs">
+            <a href="/dashboard">Dashboard</a>
+            <i className="icon ion-chevron-right"></i>
+            <h2>{this.state.project.name}</h2>
+          </div>
+        </div>
+      </div>
     );
   }
 }

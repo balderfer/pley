@@ -39,7 +39,6 @@ app.use(session({
   })
 }));
 
-app.use('/', routing);
 
 // Set the view engine to handlebars.
 app.set('views', 'views/');
@@ -50,6 +49,7 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 app.use('/',  express.static('./public'));
+app.use('/', routing);
 
 const port = process.env.PORT || 3000;
 
