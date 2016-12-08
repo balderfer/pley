@@ -41,15 +41,13 @@ var Auth = function () {
           // Compare the two hashed passwords.
           _collections.Users.authenticate(user, password, function (match) {
             if (match) {
-              console.log('setting sess here:', req.session);
               req.session.user = {
                 _id: user._id,
                 email: user.email,
                 name: user.name
               };
-              console.log('set sess here:', req.session);
-              res.status(200);
-              res.end();
+
+              res.status(200).end('Success. You are now logged in.');
             } else {
               res.status(401).end('Invalid email/password.');
             }
@@ -122,9 +120,9 @@ var Auth = function () {
                     email: user.email,
                     name: user.name
                   };
-                  console.log('user object to save:', userObject);
 
                   req.session.user = userObject;
+
                   res.redirect('/dashboard');
                 });
               }

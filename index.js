@@ -27,12 +27,10 @@ app.use(cookieParser('ult1m4t3 53cr3t'));
 
 app.use(session({
   secret: 'ult1m4t3 53cr3t',
-  resave: true,
+  resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: false,
-    // expires: new Date(Date.now() + 900000),
-    domain: '127.0.0.1:3000'
+    secure: false
   },
   store: new MongoStore({
     url: 'mongodb://localhost:27017/pley-sessions'
