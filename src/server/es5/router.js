@@ -32,6 +32,7 @@ router.get(['/register'], function (req, res) {
   return res.render('register');
 });
 router.get(['/', '/docs', '/about', '/login', '/dashboard', '/dashboard/new'], function (req, res) {
+  console.log('session:', req.session);
   res.render('index', {
     user: JSON.stringify(req.session.user || {})
   });

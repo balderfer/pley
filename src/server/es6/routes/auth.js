@@ -20,16 +20,20 @@ export default class Auth {
     Users.findUserByEmail(email, {
       _id: 1,
       name: 1,
-      hashedPassword: 1
+      hashedPassword: 1,
+      email: 1
     }, (user) => {
       if (user && user.hashedPassword) {
         // Compare the two hashed passwords.
         Users.authenticate(user, password, (match) => {
           if (match) {
+            console.log('setting sess here:', req.session);
             req.session.user = {
               _id: user._id,
+              email: user.email,
               name: user.name
             };
+            console.log('set sess here:', req.session);
             res.status(200);
             res.end();
           } else {
@@ -77,7 +81,6 @@ export default class Auth {
   }
 
   static postRegister(req, res) {
-    console.log("received post register request");
     if(req.body &&
        req.body.token &&
        req.body.email &&
@@ -94,21 +97,22 @@ export default class Auth {
 
       Verify.verifyToken(req.body.email, req.body.token, (success) => {
         if (success) {
-          console.log('verified token!')
           Users.hash(req.body.password, (err, hash) => {
-            if (err) console.log("Error hashing password.", err);
+            if (err) console.log('Error hashing password.', err);
             if (hash) {
               Users.updateUserByEmail(req.body.email, {
                 hashedPassword: hash,
                 name: req.body.name
               }, (user) => {
-                console.log("Saved new user registration!");
                 var userObject = {
+                  _id: user._id,
                   email: user.email,
                   name: user.name
                 };
+                console.log('user object to save:',userObject);
+
                 req.session.user = userObject;
-                res.render('index');
+                res.redirect('/dashboard');
               });
             }
           })

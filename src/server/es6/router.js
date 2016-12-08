@@ -28,6 +28,7 @@ router.post('/login', Auth.login);
 router.get('/logout', Auth.logout);
 router.get(['/register'], (req, res) => res.render('register'));
 router.get(['/', '/docs', '/about', '/login', '/dashboard', '/dashboard/new'], (req, res) => {
+  console.log('session:',req.session);
   res.render('index', {
     user: JSON.stringify(req.session.user || {})
   });

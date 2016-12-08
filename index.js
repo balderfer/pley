@@ -27,11 +27,11 @@ app.use(cookieParser('ult1m4t3 53cr3t'));
 
 app.use(session({
   secret: 'ult1m4t3 53cr3t',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   cookie: {
     secure: false,
-    expires: new Date(Date.now() + 900000),
+    // expires: new Date(Date.now() + 900000),
     domain: '127.0.0.1:3000'
   },
   store: new MongoStore({
