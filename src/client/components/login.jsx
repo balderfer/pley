@@ -43,6 +43,7 @@ class Login extends React.Component {
       })
       .withCredentials()
       .end((err, res) => {
+        console.log('err:',err);
         if (err || res.statusCode !== 200) {
           this.setState({
             unsuccessfulLoginAttempt: true
@@ -51,7 +52,7 @@ class Login extends React.Component {
           this.setInLoginRequest(false);
           this.setLoginState('INPUT');
         } else {
-          Router.browserHistory.push('/');
+          window.location = '/dashboard';
         }
       });
   }
