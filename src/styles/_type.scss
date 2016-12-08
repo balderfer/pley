@@ -1,0 +1,57 @@
+.dashboard {
+  h1 {
+    font-weight: 900;
+    font-size: 2rem;
+    color: #333333;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #333333;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    margin: 0;
+    margin-bottom: 0.75rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #333333;
+  }
+
+  h4 {
+    margin: 0;
+    margin-bottom: 0.75rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #333333;
+  }
+
+  p {
+    line-height: 1.5em;
+    font-size: 0.8rem;
+    color: #666666;
+  }
+
+  a {
+    color: $yellow;
+    text-decoration: none;
+  }
+}
+
+.floating-hover {
+  box-shadow: 0 0 2px #ffffff;
+  transition: all 0.25s ease;
+}
+
+.floating-hover:hover {
+  transition: all 0.25s ease;
+  transform: translate3d(0, -1px, 0);
+  background-color: #FFDA33;
+  box-shadow: 0 2px 4px #666666;
+  cursor: pointer;
+}
