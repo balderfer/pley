@@ -123,19 +123,40 @@ export default class DashboardProjectContainer extends React.Component {
         <div className="project">
           <div className="section">
             <h3>URL</h3>
-            <a href={this.state.activeProject.url}>{this.state.activeProject.url}</a>
+            <a href={this.state.activeProject.lines[0].split(" ")[0]}>{this.state.activeProject.url}</a>
           </div>
           <div className="section">
             <h3>Github URL</h3>
-            <a href={this.state.activeProject.githubURL}>{this.state.activeProject.githubURL}</a>
+            <a href={this.renderGithubURL()}>{this.renderGithubURL()}</a>
           </div>
           <div className="section">
             <h3>Status</h3>
+            {this.renderStatusMessages()}
             <p>{this.state.activeProject.status}</p>
           </div>
         </div>
       </div>
     );
+  }
+
+  renderGithubURL() {
+    var array = this.state.activeProject.status.split(" ");
+    for (var i in array) {
+      if (array[i].indexOf("github.com/") > 0) {
+        return array[i];
+      }
+    }
+    return "";
+  }
+
+  renderStatusMessages() {
+    return this.state.activeProject.lines.map((line) => {
+      if (line.indexOf("deployment #") > 0 || line.indexOf("build #") > 0) {
+        return (
+          <p>{line}</p>
+        );
+      }
+    })
   }
 
   updateActiveProject(project) {
