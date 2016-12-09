@@ -8,7 +8,7 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div className='layout'>
+      <div className="layout">
         <div className="header">
           <div className="container">
             <ul>
@@ -29,7 +29,7 @@ class Layout extends React.Component {
               </Link>
               <Link to="/login">
                 <li>
-                    <button>Sign in</button>
+                    <button className="signInButton">Sign in</button>
                 </li>
               </Link>
             </ul>
