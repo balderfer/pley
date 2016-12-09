@@ -94,39 +94,46 @@ var Auth = function () {
         }, function (user) {
           if (user && user.hashedPassword) {
             _collections.Users.authenticate(user, req.body.password, function (match) {
+              // The user is who they say they are, let them change the settings.
               if (match) {
-                (function () {
-                  // The user is who they say they are, let them change the settings.
+                req.session.user.name = req.body.name;
+
+                if (req.body.newPassword && req.body.confirmPassword) {
+                  _collections.Users.hash(req.body.newPassword, function (err, hash) {
+                    if (err) {
+                      console.log('Error hashing password.', err);
+                      res.status(400).end('Error hashing password.');
+                      return;
+                    }
+                    if (hash) {
+                      var update = {
+                        name: req.body.name,
+                        hashedPassword: hash
+                      };
+
+                      _collections.Users.updateUserByEmail(req.session.user.email, update, function (response) {
+                        if (response && response.nModified === 1) {
+                          res.status(200).end('Success');
+                        } else {
+                          res.status(400).end('Error updating user.');
+                        }
+                      });
+                    }
+                  });
+                } else {
                   var update = {
                     name: req.body.name
                   };
-                  req.session.user.name = req.body.name;
 
-                  console.log('new password:', req.body.newPassword);
-
-                  if (req.body.newPassword && req.body.confirmPassword) {
-                    _collections.Users.hash(req.body.newPassword, function (err, hash) {
-                      console.log('hashed:', hash);
-                      if (err) {
-                        console.log('Error hashing password.', err);
-                        res.status(400).end('Error hashing password.');
-                      }
-                      if (hash) {
-                        update.hashedPassword = hash;
-                        console.log('update settings:', update);
-
-                        _collections.Users.updateUserByEmail(req.body.email, update, function (user) {
-                          res.status(200).end('Success');
-                        });
-                      }
-                    });
-                  } else {
-                    // The user is who they say they are, let them change the settings.
-                    _collections.Users.updateUserByEmail(req.body.email, update, function (user) {
+                  // The user is who they say they are, let them change the settings.
+                  _collections.Users.updateUserByEmail(req.session.user.email, update, function (response) {
+                    if (response && response.nModified === 1) {
                       res.status(200).end('Success');
-                    });
-                  }
-                })();
+                    } else {
+                      res.status(400).end('Error updating user.');
+                    }
+                  });
+                }
               } else {
                 res.status(401).end('Invalid email/password.');
               }

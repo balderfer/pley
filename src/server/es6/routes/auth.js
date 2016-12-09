@@ -77,35 +77,44 @@ export default class Auth {
       }, (user) => {
         if (user && user.hashedPassword) {
           Users.authenticate(user, req.body.password, (match) => {
-            if (match) {
-              // The user is who they say they are, let them change the settings.
-              let update = {
-                name: req.body.name
-              }
+            // The user is who they say they are, let them change the settings.
+            if (match) {              
               req.session.user.name = req.body.name;
-
-              console.log('new password:',req.body.newPassword);
 
               if (req.body.newPassword && req.body.confirmPassword) {
                 Users.hash(req.body.newPassword, (err, hash) => {
-                  console.log('hashed:',hash);
                   if (err) {
                     console.log('Error hashing password.', err);
                     res.status(400).end('Error hashing password.');
+                    return;
                   }
                   if (hash) {
-                    update.hashedPassword = hash;
-                    console.log('update settings:',update);
+                    const update = {
+                      name: req.body.name,
+                      hashedPassword: hash
+                    };
 
-                    Users.updateUserByEmail(req.body.email, update, (user) => {
-                      res.status(200).end('Success');
+                    Users.updateUserByEmail(req.session.user.email, update, (response) => {
+                      if (response && response.nModified === 1) {
+                        res.status(200).end('Success');
+                      } else { 
+                        res.status(400).end('Error updating user.');
+                      }
                     });
                   }
                 });
               } else {
+                const update = {
+                  name: req.body.name
+                };
+
                 // The user is who they say they are, let them change the settings.
-                Users.updateUserByEmail(req.body.email, update, (user) => {
-                  res.status(200).end('Success');
+                Users.updateUserByEmail(req.session.user.email, update, (response) => {
+                  if (response && response.nModified === 1) {
+                    res.status(200).end('Success');
+                  } else { 
+                    res.status(400).end('Error updating user.');
+                  }
                 });
               }
             } else {
