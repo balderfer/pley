@@ -80,7 +80,7 @@ export default class Project {
               response: response
             });
           } else {
-            res.status(200).json(JSON.parse(response.text));
+            res.status(200).send(response.text);
           }
         });
     }
