@@ -43,5 +43,4 @@ export default class Users {
   static hash(text, callback) {
     bcrypt.hash(text, saltRounds, callback);
   }
-
 }

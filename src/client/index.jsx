@@ -13,6 +13,8 @@ const Layout = require('./components/layout.jsx');
 const Landing = require('./components/landing.jsx');
 const Docs = require('./components/docs.jsx');
 const About = require('./components/about.jsx');
+const Settings = require('./components/settings.jsx');
+
 const Login = require('./components/login.jsx');
 import DashboardProjectContainer from './components/dashboard/dashboard-project-container.jsx';
 import DashboardCreateApplication from './components/dashboard/dashboard-create-application.jsx';
@@ -23,7 +25,7 @@ class App extends React.Component {
     this.state = {
       displayEmail: false,
       navState: 'LANDING',
-      verificationEmail: '',
+      verificationEmail: ''
     };
   }
 
@@ -41,6 +43,7 @@ class App extends React.Component {
         <Route path="/" component={Landing}/>
         <Route path="/docs" component={Docs}/>
         <Route path="/about" component={About}/>
+        <Route path="/settings" component={Settings}/>
         <Route path="/login" component={Login} 
           setNavState={navState => this.setState({navState})}/>
         <Route path="/dashboard" component={DashboardProjectContainer}/>

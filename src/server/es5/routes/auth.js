@@ -83,6 +83,11 @@ var Auth = function () {
       }
     }
   }, {
+    key: 'settings',
+    value: function settings(req, res) {
+      if (!req.body || !req.body.name) {}
+    }
+  }, {
     key: 'getRegister',
     value: function getRegister(req, res) {
       if (req.query && req.query.email && req.query.token) {

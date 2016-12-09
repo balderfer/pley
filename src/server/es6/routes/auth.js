@@ -67,6 +67,12 @@ export default class Auth {
     }
   }
 
+  static settings(req, res) {
+    if(!req.body || !req.body.name) {
+      
+    }
+  }
+
   static getRegister(req, res) {
     if (req.query && req.query.email && req.query.token) {
       res.render('register', {

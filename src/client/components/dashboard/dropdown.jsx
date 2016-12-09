@@ -39,7 +39,7 @@ export default class Dropdown extends React.Component {
 
         <div className={this.getMenuClasses()} hidden={!this.state.dropdownOpen}>
           <ul>
-            <li><a href="#">Settings</a></li>
+            <li><a href="/settings">Settings</a></li>
             <li><a href="/logout">Log Out</a></li>
           </ul>
         </div>
