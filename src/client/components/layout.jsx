@@ -29,7 +29,7 @@ class Layout extends React.Component {
               </Link>
               <Link to="/login">
                 <li>
-                    <button">Sign in</button>
+                    <button>Sign in</button>
                 </li>
               </Link>
             </ul>
