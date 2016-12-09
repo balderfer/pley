@@ -66,13 +66,16 @@ export default class DashboardPage extends React.Component {
   }
 
   renderApps() {
-    return this.state.projects.map((project) => {
-      return (
-        <li key={project._id} className="floating-hover">
-          <Link to={"/dashboard/"+project.name}>{project.name}</Link>
-        </li>
-      );
-    });
+    // console.log('this.state.projects',this.state.projects);
+    if(this.state.projects && this.state.projects.length < 10) {
+      return this.state.projects.map((project) => {
+        return (
+          <li key={project._id} className="floating-hover">
+            <Link to={"/dashboard/"+project.name}>{project.name}</Link>
+          </li>
+        );
+      });
+    }
   }
 
 }

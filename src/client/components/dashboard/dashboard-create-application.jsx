@@ -9,7 +9,9 @@ export default class DashboardCreateApplication extends React.Component {
 
     this.state = {
       appName: "",
-      ghUrl: ""
+      ghUrl: "",
+      inRequest: false,
+      applicationState: ''
     };
 
     this.submitForm = this.submitForm.bind(this);
@@ -44,6 +46,8 @@ export default class DashboardCreateApplication extends React.Component {
             <div className="input-row">
               <button onClick={this.submitForm}>Continue</button>
             </div>
+
+            {this.renderApplicationState()}
           </div>
         </div>
       </DashboardPage>
@@ -62,20 +66,55 @@ export default class DashboardCreateApplication extends React.Component {
     });
   }
 
+  setInRequest(newInRequest) {
+    this.setState({
+      inRequest: newInRequest
+    });
+  }
+
+  setApplicationState(newState) {
+    this.setState({
+      applicationState: newState
+    });
+  }
+
+  renderApplicationState() {
+    if (this.state.applicationState === 'REQUESTING') {
+      return (
+        <div className="input-row">
+          <a className="applicationCreationWorking">Working... This may take up to 30 seconds.</a>
+        </div>
+      );
+    } else if(this.state.applicationState === 'BUILDING') {
+      return (
+        <div className="input-row">
+          <a className="applicationCreationBuilding">Success! Your application is now building. <br/><br/>If you refresh it will appear on the sidebar momentarily.</a>
+        </div>
+      );
+    }
+  }
+
   submitForm() {
-    request
-      .post('/api/app/create')
-      .set('Content-Type', 'application/json')
-      .send({
-        applicationName: this.state.appName,
-        githubUrl: this.state.ghUrl
-      })
-      .withCredentials()
-      .end((err, res) => {
-        if (res.status === 200) {
-          console.log(res);
-          // Router.browserHistory.push('/dashboard/' + res.body._id);
-        }
-      });
+    if (!this.state.inRequest) {
+      this.setInRequest(true);
+      this.setApplicationState('REQUESTING');
+
+      request
+        .post('/api/app/create')
+        .set('Content-Type', 'application/json')
+        .send({
+          applicationName: this.state.appName,
+          githubUrl: this.state.ghUrl
+        })
+        .withCredentials()
+        .end((err, res) => {
+          this.setInRequest(false);
+
+          if (res.status === 200) {
+            this.setApplicationState('BUILDING');
+            // Router.browserHistory.push('/dashboard/' + this.state.appName);
+          }
+        });
+    }
   }
 }
