@@ -47,10 +47,16 @@ export default class DashboardProjectContainer extends React.Component {
             var projects = JSON.parse(res.text);
             for (var i in projects) {
               if (projects[i].name === props.params.projectId) {
-                this.setState({
-                  pageState: "loaded",
-                  activeProject: projects[i]
-                });
+                request
+                  .get('/api/app/' + projects[i].name + '/logs')
+                  .withCredentials()
+                  .end((err2, res2) => {
+                    console.log(res2);
+                    this.setState({
+                      pageState: "loaded",
+                      activeProject: projects[i]
+                    });
+                  });
               }
             }
           });

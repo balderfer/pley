@@ -66,6 +66,27 @@ export default class Project {
     }
   }
 
+  static getLogs(req, res) {
+    if (!req.session.user) {
+      res.status(403).send('Unauthorized');
+    } else {
+      request
+        .get('http://bart.usb.cs.purdue.edu:3000/logs/' + req.params.projectId)
+        .end((err, response) => {
+          if (err) {
+            console.log(err);
+            res.status(400).json({
+              error: err,
+              response: response
+            });
+          } else {
+            res.status(200).json(JSON.parse(response.text));
+          }
+        });
+    }
+
+  }
+
   static getProjectsForUser(req, res) {
     if (!req.session.user) {
       res.status(403).send('Unauthorized');

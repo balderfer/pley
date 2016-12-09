@@ -23,6 +23,7 @@ import { Auth, Project } from './routes';
 router.post('/api/app/create', Project.create);
 router.post('/api/app/all', Project.getProjectsForUser);
 router.post('/api/app/:projectId', Project.get);
+router.get('/api/app/:projectId/logs', Project.getLogs);
 
 router.post('/register', Auth.postRegister);
 router.post('/signup', Auth.signup);
