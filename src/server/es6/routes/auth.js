@@ -68,22 +68,17 @@ export default class Auth {
   }
 
   static settings(req, res) {
-    if(!req.session.user || !req.body || !req.body.currentPassword || !req.body.name) {
+    if(!req.session.user || !req.body || !req.body.password || !req.body.name) {
       res.status(401).end('Thats a bad request');
     } else {
-      console.log('They have the right params. Lets see if they can change settings');
       Users.findUserByEmail(req.session.user.email, {
         _id: 1,
         hashedPassword: 1
       }, (user) => {
         if (user && user.hashedPassword) {
-          Users.authenticate(user, req.body.currentPassword, (match) => {
-            if (match) {
-              // The user is who they say they are, let them change the settings.
-              console.log('password checks out.');
-              let update = {
-                name: req.body.name
-              }
+          Users.authenticate(user, req.body.password, (match) => {
+            // The user is who they say they are, let them change the settings.
+            if (match) {              
               req.session.user.name = req.body.name;
 
               if (req.body.newPassword && req.body.confirmPassword) {
@@ -91,20 +86,35 @@ export default class Auth {
                   if (err) {
                     console.log('Error hashing password.', err);
                     res.status(400).end('Error hashing password.');
+                    return;
                   }
                   if (hash) {
-                    console.log('Hashed password works');
-                    update.hashedPassword = hash;
+                    const update = {
+                      name: req.body.name,
+                      hashedPassword: hash
+                    };
 
-                    Users.updateUserByEmail(req.body.email, update, (user) => {
-                      res.status(200).end('Success');
+                    Users.updateUserByEmail(req.session.user.email, update, (response) => {
+                      if (response && response.nModified === 1) {
+                        res.status(200).end('Success');
+                      } else { 
+                        res.status(400).end('Error updating user.');
+                      }
                     });
                   }
                 });
               } else {
+                const update = {
+                  name: req.body.name
+                };
+
                 // The user is who they say they are, let them change the settings.
-                Users.updateUserByEmail(req.body.email, update, (user) => {
-                  res.status(200).end('Success');
+                Users.updateUserByEmail(req.session.user.email, update, (response) => {
+                  if (response && response.nModified === 1) {
+                    res.status(200).end('Success');
+                  } else { 
+                    res.status(400).end('Error updating user.');
+                  }
                 });
               }
             } else {
@@ -143,6 +153,7 @@ export default class Auth {
           userEmail: req.body.email,
           registerMessage: 'Your passwords don\'t match.'
         });
+        return;
       }
 
       Verify.verifyToken(req.body.email, req.body.token, (success) => {
