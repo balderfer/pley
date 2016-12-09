@@ -8,11 +8,13 @@ export default class DashboardCreateApplication extends React.Component {
     super(props);
 
     this.state = {
-      appName: ""
+      appName: "",
+      ghUrl: ""
     };
 
     this.submitForm = this.submitForm.bind(this);
     this.appNameChanged = this.appNameChanged.bind(this);
+    this.ghUrlChanged = this.ghUrlChanged.bind(this);
   }
 
   render() {
@@ -28,10 +30,17 @@ export default class DashboardCreateApplication extends React.Component {
           </div>
 
           <div className="create-application-form form form-large">
+            
             <div className="input-row">
               <label htmlFor="appName">Application Name</label>
               <input name="appName" id="appName" type="text" value={this.state.appName} onChange={this.appNameChanged}/>
             </div>
+            
+            <div className="input-row">
+              <label htmlFor="ghurl">Github URL</label>
+              <input name="ghurl" id="ghurl" type="text" value={this.state.ghUrl} onChange={this.ghUrlChanged}/>
+            </div>
+                        
             <div className="input-row">
               <button onClick={this.submitForm}>Continue</button>
             </div>
@@ -47,17 +56,25 @@ export default class DashboardCreateApplication extends React.Component {
     });
   }
 
+  ghUrlChanged(e) {
+    this.setState({
+      ghUrl: e.target.value
+    });
+  }
+
   submitForm() {
     request
       .post('/api/app/create')
       .set('Content-Type', 'application/json')
       .send({
-        applicationName: this.state.appName
+        applicationName: this.state.appName,
+        githubUrl: this.state.ghUrl
       })
       .withCredentials()
       .end((err, res) => {
-        if (res.status === 200 && res.body && res.body._id) {
-          Router.browserHistory.push('/dashboard/' + res.body._id);
+        if (res.status === 200) {
+          console.log(res);
+          // Router.browserHistory.push('/dashboard/' + res.body._id);
         }
       });
   }
