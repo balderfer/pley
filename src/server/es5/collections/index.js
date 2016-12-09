@@ -13,4 +13,13 @@ Object.defineProperty(exports, 'Users', {
   }
 });
 
+var _projects = require('./projects');
+
+Object.defineProperty(exports, 'Projects', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_projects).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

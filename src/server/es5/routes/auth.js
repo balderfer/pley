@@ -34,7 +34,8 @@ var Auth = function () {
       _collections.Users.findUserByEmail(email, {
         _id: 1,
         name: 1,
-        hashedPassword: 1
+        hashedPassword: 1,
+        email: 1
       }, function (user) {
         if (user && user.hashedPassword) {
           // Compare the two hashed passwords.
@@ -42,10 +43,11 @@ var Auth = function () {
             if (match) {
               req.session.user = {
                 _id: user._id,
+                email: user.email,
                 name: user.name
               };
-              res.status(200);
-              res.end();
+
+              res.status(200).end('Success. You are now logged in.');
             } else {
               res.status(401).end('Invalid email/password.');
             }
@@ -81,6 +83,61 @@ var Auth = function () {
       }
     }
   }, {
+    key: 'settings',
+    value: function settings(req, res) {
+      if (!req.session.user || !req.body || !req.body.currentPassword || !req.body.name) {
+        res.status(401).end('Thats a bad request');
+      } else {
+        console.log('They have the right params. Lets see if they can change settings');
+        _collections.Users.findUserByEmail(req.session.user.email, {
+          _id: 1,
+          hashedPassword: 1
+        }, function (user) {
+          if (user && user.hashedPassword) {
+            _collections.Users.authenticate(user, req.body.currentPassword, function (match) {
+              if (match) {
+                (function () {
+                  // The user is who they say they are, let them change the settings.
+                  console.log('password checks out.');
+                  var update = {
+                    name: req.body.name
+                  };
+                  req.session.user.name = req.body.name;
+
+                  if (req.body.newPassword && req.body.confirmPassword) {
+                    _collections.Users.hash(req.body.newPassword, function (err, hash) {
+                      if (err) {
+                        console.log('Error hashing password.', err);
+                        res.status(400).end('Error hashing password.');
+                      }
+                      if (hash) {
+                        console.log('Hashed password works');
+                        update.hashedPassword = hash;
+
+                        _collections.Users.updateUserByEmail(req.body.email, update, function (user) {
+                          res.status(200).end('Success');
+                        });
+                      }
+                    });
+                  } else {
+                    // The user is who they say they are, let them change the settings.
+                    _collections.Users.updateUserByEmail(req.body.email, update, function (user) {
+                      res.status(200).end('Success');
+                    });
+                  }
+                })();
+              } else {
+                res.status(401).end('Invalid email/password.');
+              }
+            });
+          } else {
+            // No match in db for email with a verified account.
+            res.status(401).end('Cannot find user');
+          }
+        });
+      }
+    }
+  }, {
     key: 'getRegister',
     value: function getRegister(req, res) {
       if (req.query && req.query.email && req.query.token) {
@@ -95,7 +152,6 @@ var Auth = function () {
   }, {
     key: 'postRegister',
     value: function postRegister(req, res) {
-      console.log("received post register request");
       if (req.body && req.body.token && req.body.email && req.body.password && req.body.passwordVerification && req.body.name) {
 
         if (req.body.password !== req.body.passwordVerification) {
@@ -107,21 +163,20 @@ var Auth = function () {
 
         Verify.verifyToken(req.body.email, req.body.token, function (success) {
           if (success) {
-            console.log('verified token!');
             _collections.Users.hash(req.body.password, function (err, hash) {
-              if (err) console.log("Error hashing password.", err);
+              if (err) console.log('Error hashing password.', err);
               if (hash) {
                 _collections.Users.updateUserByEmail(req.body.email, {
                   hashedPassword: hash,
                   name: req.body.name
                 }, function (user) {
-                  console.log("Saved new user registration!");
-                  var userObject = {
+                  req.session.user = {
+                    _id: user._id,
                     email: user.email,
                     name: user.name
                   };
-                  req.session.user = userObject;
-                  res.render('index');
+
+                  res.redirect('/dashboard');
                 });
               }
             });

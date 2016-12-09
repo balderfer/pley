@@ -28,18 +28,15 @@ app.use(cookieParser('ult1m4t3 53cr3t'));
 app.use(session({
   secret: 'ult1m4t3 53cr3t',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: {
-    secure: false,
-    expires: new Date(Date.now() + 900000),
-    domain: '127.0.0.1:3000'
+    secure: false
   },
   store: new MongoStore({
     url: 'mongodb://localhost:27017/pley-sessions'
   })
 }));
 
-app.use('/', routing);
 
 // Set the view engine to handlebars.
 app.set('views', 'views/');
@@ -50,6 +47,7 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 app.use('/',  express.static('./public'));
+app.use('/', routing);
 
 const port = process.env.PORT || 3000;
 

@@ -135,12 +135,9 @@ gulp.task('js', function() {
 
 gulp.task('babel', function () {
   return gulp.src(config.serverES6Path)
-    // .pipe(sourcemaps.init())
     .pipe(babel({
       presets: ['es2015']
     }))
-    // .pipe(sourcemaps.write('.',
-    //   { sourceRoot: paths.sourceRoot }))
     .pipe(gulp.dest(config.serverES5Dir));
 });
 
@@ -158,4 +155,4 @@ gulp.task('server', function() {
     });
 });
 
-gulp.task('default', ['js', 'dev', 'server', 'style', 'jsClientDependencies']);
+gulp.task('default', ['js', 'dev', 'babel', 'server', 'style', 'jsClientDependencies']);

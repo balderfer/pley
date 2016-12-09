@@ -1,3 +1,5 @@
+const request = require('superagent');
+
 import React, { PropTypes } from 'react';
 
 const Router = require('react-router');
@@ -28,7 +30,11 @@ class Landing extends React.Component {
   }
 
   sendVerificationEmail() {
-    const verificationCreationUrl = '/signup';
+    if(this.state.navState === 'SENT' || this.state.navState === 'ALREADY_SENT') {
+      this.setNavState('ALREADY_SENT');
+      return;
+    }
+
     const purdueEmailRegex = new RegExp('@purdue.edu\s*$');
 
     if (!purdueEmailRegex.test(this.state.email)) {
@@ -38,14 +44,15 @@ class Landing extends React.Component {
     }
     this.setNavState('SENT');
 
-    $.post({
-      url: verificationCreationUrl, 
-      data: {
+    request
+      .post('/signup')
+      .set('Content-Type', 'application/json')
+      .send({
         email: this.state.email
-      }, error: () => {
-        this.setNavState('FAILED_REQUEST');
-      }}).done((data, status, xhr) => {
-        if (xhr.status != 200) {
+      })
+      .withCredentials()
+      .end((err, res) => {
+        if (res.statusCode != 200) {
           this.setNavState('FAILED_REQUEST');
         } else {
           this.setNavState('SENT');
@@ -88,6 +95,14 @@ class Landing extends React.Component {
         <div className="text-container">
           <p className="small">
             <span className="red-text">Unable to sign up. Check your internet connection?</span> Something wrong? Shoot us an email at usb@cs.purdue.edu
+          </p>
+        </div>
+      );
+    } else if (this.state.navState === 'ALREADY_SENT') {
+      return (
+        <div className="text-container">
+          <p className="small">
+            <span className="red-text">We{'\''}ve already sent you an email!</span>
           </p>
         </div>
       );

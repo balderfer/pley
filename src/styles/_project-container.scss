@@ -1,0 +1,56 @@
+.project-container {
+  display: flex;
+  flex: 1;
+
+  &-empty {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .text-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 16rem;
+      text-align: center;
+      
+      p {
+        margin-bottom: 1rem;
+      }
+
+      button {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  &-loaded {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .dashboard-header {
+      z-index: 4;
+    }
+
+    .project {
+      padding: 4rem;
+      box-sizing: border-box;
+
+      .section {
+        margin-bottom: 2rem;
+
+        a, p {
+          font-size: 0.8rem;
+          color: $grey600;
+        }
+
+        a:hover {
+          color: $yellow;
+        }
+      }
+    }
+  }
+}

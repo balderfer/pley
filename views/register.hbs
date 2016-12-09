@@ -4,28 +4,49 @@
   <title>Pley</title>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/css/index.css">
   <link rel='icon' type='image/png' href='/favicon.png'/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
-  <form class="registerForm" action="/register" method="post">
-    Sign up for Pley
-    <br/>
-    <input name="email" type="text" class="emailInput" readonly value="{{userEmail}}"/>
-    <br/>
-    <input name="name" type="text" class="nameInput" placeholder="Name"/>
-    <br/>
-    <input name="password" type="password" class="passwordInput" placeholder="Password" minlength="6" maxlength="24"/>
-    <br/>
-    <input name="passwordVerification" type="password" class="passwordInput" placeholder="Re-enter password" minlength="6" maxlength="24"/>
-    <br/>
-    <input name="token" type="text" class="emailInput" readonly hidden value="{{verifyToken}}"/>
-    <button type="submit">Register &rarr;</button>
-    <br/>
-    {{#if registerMessage}}
-      <a class="registerMessage">{{registerMessage}}</a>
-    {{/if}}
-  </form>
+  <div class="dashboard  form">
+    <form class="registerForm" action="/register" method="post">
+      <div class="input-row">
+        <h2>Sign up for Pley</h2>
+      </div>
+
+      <div class="input-row">
+        <label>Email</label>
+        <input name="email" type="text" class="emailInput" readonly value="{{userEmail}}"/>
+      </div>
+
+      <div class="input-row">
+        <label htmlFor="name">Name</label>
+        <input id="name" name="name" type="text" class="nameInput" placeholder="Name"/>
+      </div>
+
+      <div class="input-row">
+        <label htmlFor="password">Password <span class="smallSettingsLabel"> (6-24 Characters, not the same as your Purdue password)</span></label>
+        <input id="password" name="password" type="password" class="passwordInput" placeholder="Password" minlength="6" maxlength="24"/>
+      </div>
+
+      <div class="input-row">
+        <label htmlFor="confirmPassword">Re-Enter Password</label>
+        <input id="confirmPassword" name="passwordVerification" type="password" class="passwordInput" placeholder="Re-Enter password" minlength="6" maxlength="24"/>    
+      </div>
+
+      <input name="token" type="text" class="emailInput" readonly hidden value="{{verifyToken}}"/>
+
+      <div class="input-row">
+        <button type="submit">Register &rarr;</button>
+      </div>
+
+      <div class="input-row">
+        {{#if registerMessage}}
+          <a class="registerErrorMessage">{{registerMessage}}</a>
+        {{/if}}
+      </div>
+    </form>
+  </div>
 </body>
 </html>

@@ -1,4 +1,20 @@
+$grey50: #FAFAFA;
+$grey100: #F5F5F5;
+$grey200: #EEEEEE;
+$grey300: #E0E0E0;
+$grey400: #BDBDBD;
+$grey500: #9E9E9E;
+$grey600: #757575;
+$grey700: #616161;
+$grey800: #424242;
+$grey900: #212121;
+$yellow: #f1c40f;
+
+@import 'type';
 @import 'dashboard';
+@import 'dropdown';
+@import 'project-container';
+@import 'form';
 
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -80,57 +96,60 @@ html, body {
   color: red;
 }
 
-h1 {
-  font-weight: 900;
-  font-size: 5rem;
-  color: #333333;
-  margin-bottom: 1.5rem;
+.docs, .hero, .about {
+  h1 {
+    font-weight: 900;
+    font-size: 5rem;
+    color: #333333;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-weight: 900;
+    font-size: 3rem;
+    color: #333333;
+    margin-bottom: 1.5rem;
+  }
+
+  h3 {
+    font-weight: 900;
+    font-size: 2rem;
+    color: #999;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #999;
+  }
+
+  h4 {
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #333333;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    line-height: 1.5em;
+    font-size: 1rem;
+    color: #666666;
+  }
+
+  button {
+    padding: 1rem;
+    background-color: #ffd100;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #333333;
+    box-shadow: 0 0 2px #ffffff;
+    transition: all 0.25s ease;
+
+    margin-bottom: 1.5em;
+  }
 }
 
-h2 {
-  font-weight: 900;
-  font-size: 3rem;
-  color: #333333;
-  margin-bottom: 1.5rem;
-}
-
-h3 {
-  font-weight: 900;
-  font-size: 2rem;
-  color: #999;
-  padding-bottom: 1rem;
-  border-bottom: 3px solid #999;
-}
-
-h4 {
-  font-weight: 400;
-  font-size: 1.5rem;
-  color: #333333;
-  margin-bottom: 0.5rem;
-}
-
-p {
-  line-height: 1.5em;
-  font-size: 1rem;
-  color: #666666;
-}
-
-button {
-  padding: 1rem;
-  background-color: #ffd100;
-  border: none;
-  outline: none;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #333333;
-  box-shadow: 0 0 2px #ffffff;
-  transition: all 0.25s ease;
-
-  margin-bottom: 1.5em;
-}
 
 button:hover {
   transition: all 0.25s ease;
@@ -278,4 +297,30 @@ p.small {
 
 .loginMessage {
   color: red;
+}
+
+.settingsErrorMessage {
+  color: red !important;
+}
+
+.settingsSuccessMessage {
+  color: green !important;
+}
+
+.smallSettingsLabel {
+  font-size: 0.7em;
+}
+
+.settings-container {
+  padding: 4rem;
+  box-sizing: border-box;
+}
+
+.registerForm {
+  margin-top: 5rem;
+  margin-left: 5rem;
+}
+
+.registerErrorMessage {
+  color: red !important;
 }

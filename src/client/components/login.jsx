@@ -51,7 +51,7 @@ class Login extends React.Component {
           this.setInLoginRequest(false);
           this.setLoginState('INPUT');
         } else {
-          Router.browserHistory.push('/');
+          window.location = '/dashboard';
         }
       });
   }
