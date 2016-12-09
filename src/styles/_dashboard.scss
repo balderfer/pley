@@ -62,12 +62,21 @@
     }
 
     h1 {
-      font-size: 1.4rem;
+      font-size: 1rem;
       font-weight: 700;
       color: $grey50;
       // text-transform: uppercase;
       // letter-spacing: 6px;
       margin: 0;
+    }
+
+
+    &-left {
+      a {
+        color: $grey50;
+        font-size: 1rem;
+        margin-right: 1.5rem;
+      }
     }
 
     .breadcrumbs {
@@ -112,7 +121,8 @@
     .dashboard-sidebar {
       width: 12rem;
       background: $grey100;
-      box-shadow: 2px 0 4px rgba($grey900, 0.3);
+      // box-shadow: 2px 0 4px rgba($grey900, 0.3);
+      border-right: 1px solid $grey300;
       padding: 1rem;
       box-sizing: border-box;
       z-index: 5;
