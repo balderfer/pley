@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import DashboardHeader from './dashboard-header.jsx';
 import DashboardProjectContainer from './dashboard-project-container.jsx';
+const Router = require('react-router');
 const request = require('superagent');
 
 export default class DashboardPage extends React.Component {
@@ -15,7 +16,11 @@ export default class DashboardPage extends React.Component {
   }
 
   componentWillMount() {
-    this.loadProjects();
+    if (page.data.user && page.data.user._id) {
+      this.loadProjects();
+    } else {
+      Router.browserHistory.push("/");
+    }
   }
 
   loadProjects() {

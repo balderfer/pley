@@ -30,7 +30,7 @@ export default class DashboardCreateApplication extends React.Component {
           <div className="create-application-form form form-large">
             <div className="input-row">
               <label htmlFor="appName">Application Name</label>
-              <input name="appName" type="text" value={this.state.appName} onChange={this.appNameChanged}/>
+              <input name="appName" id="appName" type="text" value={this.state.appName} onChange={this.appNameChanged}/>
             </div>
             <div className="input-row">
               <button onClick={this.submitForm}>Continue</button>
