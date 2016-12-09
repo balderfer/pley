@@ -147,7 +147,7 @@ class Settings extends React.Component {
     return (
       <DashboardPage>
         <div className='about'>
-          <div className="container">
+          <div className="settings-container">
             <div className="text-container  form">
               <div className="input-row">
                 <h2>Settings</h2>

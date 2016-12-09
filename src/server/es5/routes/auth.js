@@ -170,13 +170,11 @@ var Auth = function () {
                   hashedPassword: hash,
                   name: req.body.name
                 }, function (user) {
-                  var userObject = {
+                  req.session.user = {
                     _id: user._id,
                     email: user.email,
                     name: user.name
                   };
-
-                  req.session.user = userObject;
 
                   res.redirect('/dashboard');
                 });
