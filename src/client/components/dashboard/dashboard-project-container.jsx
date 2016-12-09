@@ -8,39 +8,70 @@ export default class DashboardProjectContainer extends React.Component {
     super(props);
 
     this.state = {
-      pageState: "loading"
+      pageState: "loading",
+      projects: [],
+      activeProject: null
     };
+
+    this.updateActiveProject = this.updateActiveProject.bind(this);
   }
 
   componentWillMount() {
-    this.loadProject(this.props.params.projectId);
+    this.loadProject(this.props);
   }
 
-  componentWillReceiveProps(newProps) {
-    this.loadProject(newProps.params.projectId);
+  componentWillUpdate(newProps, newState) {
+    if (this.props.params.projectId !== newProps.params.projectId) {
+      this.loadProject(newProps);
+    }
   }
 
-  loadProject(projectId) {
-    if (projectId == null) {
+  loadProject(props) {
+    if (props.params && props.params.projectId) {
+      if (page.data.projects.length > 0) {
+        var projects = page.data.projects;
+        for (var i in projects) {
+          if (projects[i].name === props.params.projectId) {
+            this.setState({
+              pageState: "loaded",
+              activeProject: projects[i]
+            });
+          }
+        }
+      } else {
+        request
+          .post('/api/app/all')
+          .withCredentials()
+          .end((err, res) => {
+            var projects = JSON.parse(res.text);
+            for (var i in projects) {
+              if (projects[i].name === props.params.projectId) {
+                this.setState({
+                  pageState: "loaded",
+                  activeProject: projects[i]
+                });
+              }
+            }
+          });
+      }
+    } else {
       this.setState({
         pageState: "empty"
       });
+    }
+  }
+
+  getActiveProjectName() {
+    if (this.props.params && this.props.params.projectId) {
+      return this.props.params.projectId;
     } else {
-      request
-        .post('/api/app/' + projectId)
-        .withCredentials()
-        .end((err, res) => {
-          this.setState({
-            pageState: "loaded",
-            project: JSON.parse(res.text)
-          });
-        });
+      return null;
     }
   }
 
   render() {
     return (
-      <DashboardPage>
+      <DashboardPage activeProjectName={this.getActiveProjectName()} updateActiveProject={this.updateActiveProject}>
         <div className="project-container">
           {this.renderPageState()}
         </div>
@@ -85,10 +116,30 @@ export default class DashboardProjectContainer extends React.Component {
           <div className="breadcrumbs">
             <a href="/dashboard">Dashboard</a>
             <i className="icon ion-chevron-right"></i>
-            <h2>{this.state.project.name}</h2>
+            <h2>{this.state.activeProject.name}</h2>
+          </div>
+        </div>
+        <div className="project">
+          <div className="section">
+            <h3>URL</h3>
+            <a href={this.state.activeProject.url}>{this.state.activeProject.url}</a>
+          </div>
+          <div className="section">
+            <h3>Github URL</h3>
+            <a href={this.state.activeProject.githubURL}>{this.state.activeProject.githubURL}</a>
+          </div>
+          <div className="section">
+            <h3>Status</h3>
+            <p>{this.state.activeProject.status}</p>
           </div>
         </div>
       </div>
     );
+  }
+
+  updateActiveProject(project) {
+    this.setState({
+      activeProject: project
+    });
   }
 }

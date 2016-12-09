@@ -34,5 +34,23 @@
     .dashboard-header {
       z-index: 4;
     }
+
+    .project {
+      padding: 4rem;
+      box-sizing: border-box;
+
+      .section {
+        margin-bottom: 2rem;
+
+        a, p {
+          font-size: 0.8rem;
+          color: $grey600;
+        }
+
+        a:hover {
+          color: $yellow;
+        }
+      }
+    }
   }
 }

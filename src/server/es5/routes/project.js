@@ -82,16 +82,27 @@ var Project = function () {
       if (!req.session.user) {
         res.status(403).send('Unauthorized');
       } else {
-        _collections.Projects.findAllProjectsByUser(req.session.user._id, {
-          name: 1,
-          author: 1,
-          createdAt: 1,
-          _id: 1
-        }, function (projects) {
-          if (projects) {
-            res.status(200).json(projects);
+        // Projects.findAllProjectsByUser(req.session.user._id, {
+        //   name: 1,
+        //   author: 1,
+        //   createdAt: 1,
+        //   _id: 1
+        // }, (projects) => {
+        //   if (projects) {
+        //     res.status(200).json(projects);
+        //   } else {
+        //     res.status(400).send("Error finding projects");
+        //   }
+        // });
+        request.get('http://pley-proxy-2.usb.cs.purdue.edu/app-data?userId=' + req.session.user._id).end(function (err, response) {
+          if (err) {
+            console.log(err);
+            res.status(400).json({
+              error: err,
+              response: response
+            });
           } else {
-            res.status(400).send("Error finding projects");
+            res.status(200).json(JSON.parse(response.text));
           }
         });
       }

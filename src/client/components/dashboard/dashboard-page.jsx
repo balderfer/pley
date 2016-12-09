@@ -24,15 +24,21 @@ export default class DashboardPage extends React.Component {
   }
 
   loadProjects() {
-    request
-      .post('/api/app/all')
-      .withCredentials()
-      .end((err, res) => {
-        console.log(res);
-        this.setState({
-          projects: JSON.parse(res.text)
-        });
+    if (page.data.projects.length > 0) {
+      this.setState({
+        projects: page.data.projects
       });
+    } else {
+      request
+        .post('/api/app/all')
+        .withCredentials()
+        .end((err, res) => {
+          page.data.projects = JSON.parse(res.text);
+          this.setState({
+            projects: page.data.projects
+          });
+        });
+    }
   }
 
   logout() {
@@ -63,9 +69,10 @@ export default class DashboardPage extends React.Component {
     return this.state.projects.map((project) => {
       return (
         <li key={project._id} className="floating-hover">
-          <Link to={"/dashboard/"+project._id}>{project.name}</Link>
+          <Link to={"/dashboard/"+project.name}>{project.name}</Link>
         </li>
       );
     });
   }
+
 }
