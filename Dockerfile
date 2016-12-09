@@ -11,4 +11,4 @@ COPY . /usr/src/app
 EXPOSE 8080
 
 # Run app start command
-CMD npm install && ENV=prod npm start
+CMD npm install && ENV=prod MAILER_EMAIL=pleyusb MAILER_PASS=doyoutrustandunderstand npm start
