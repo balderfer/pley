@@ -24,7 +24,7 @@ var Mailer = function () {
       var verifyUrl = 'http://pley.usb.cs.purdue.edu/register?token=' + token + '&email=' + email;
       console.log('verifyUrl:', verifyUrl);
 
-      var emailHTMLContent = '<b>Hello! Welcome to Pley.</b>\n    <br>\n    To get started, please click this button:\n    <a href="' + verifyUrl + '" target="_blank">\n      <button style="background: #ffd100;border: 1px solid black; outline:none; border-radius: 6px; padding: 20px;">Get started</button>\n    </a>';
+      var emailHTMLContent = '<div style="text-align: center; font-family: open sans,helvetica neue,helvetica,arial,sans-serif;">\n      <br>\n      <h1>Hello! Welcome to Pley.</h1>\n      <br>\n      <br>\n      To get started, please click this button:\n      <a href="' + verifyUrl + '" target="_blank" style="text-decoration: none;">\n        <span style="color: black; background: #ffd100; outline:none; border: none; border-radius: 6px; padding: 20px; margin: 10px; font-size:22px;">Get Started</span>\n      </a>\n      <br>\n      <br>\n      <br>\n      <p>Or you may follow this link: <a href="' + verifyUrl + '" target="_blank">' + verifyUrl + '</a></p>\n    </div>';
 
       var mailOptions = {
         from: '"Purdue USB" <usb@cs.purdue.edu>',

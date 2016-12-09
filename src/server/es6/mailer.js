@@ -17,12 +17,20 @@ class Mailer {
     console.log('verifyUrl:', verifyUrl);
 
     const emailHTMLContent = 
-    `<b>Hello! Welcome to Pley.</b>
-    <br>
-    To get started, please click this button:
-    <a href="${verifyUrl}" target="_blank">
-      <button style="background: #ffd100;border: 1px solid black; outline:none; border-radius: 6px; padding: 20px;">Get started</button>
-    </a>`;
+    `<div style="text-align: center; font-family: open sans,helvetica neue,helvetica,arial,sans-serif;">
+      <br>
+      <h1>Hello! Welcome to Pley.</h1>
+      <br>
+      <br>
+      To get started, please click this button:
+      <a href="${verifyUrl}" target="_blank" style="text-decoration: none;">
+        <span style="color: black; background: #ffd100; outline:none; border: none; border-radius: 6px; padding: 20px; margin: 10px; font-size:22px;">Get Started</span>
+      </a>
+      <br>
+      <br>
+      <br>
+      <p>Or you may follow this link: <a href="${verifyUrl}" target="_blank">${verifyUrl}</a></p>
+    </div>`;
 
     const mailOptions = {
       from: '"Purdue USB" <usb@cs.purdue.edu>',
