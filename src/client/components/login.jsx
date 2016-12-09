@@ -89,48 +89,59 @@ class Login extends React.Component {
   renderLoginStatus() {
     if (this.state.loginState === 'INPUT') {
       return (
-        <div className="loginForm">
-          <input
-            type="text"
-            className="emailInput"
-            placeholder="Email"
-            onChange={e => {
-              this.setEmail(e.target.value);
+        <div className="dashboard  loginForm  form">
+          <div className="input-row">
+            <label>Email</label>
+            <input
+              type="text"
+              className="emailInput"
+              placeholder="Email"
+              onChange={e => {
+                this.setEmail(e.target.value);
 
-              if (this.state.unsuccessfulLoginAttempt) {
-                this.setState({
-                  unsuccessfulLoginAttempt: false
-                });
-              }
-            }}
-            value={this.state.email}
-          />
-          <br/>
-          <input
-            type="password"
-            className="passwordInput"
-            placeholder="Password"
-            onChange={e => {
-              this.setPassword(e.target.value);
+                if (this.state.unsuccessfulLoginAttempt) {
+                  this.setState({
+                    unsuccessfulLoginAttempt: false
+                  });
+                }
+              }}
+              value={this.state.email}
+            />
+          </div>
 
-              if (this.state.unsuccessfulLoginAttempt) {
-                this.setState({
-                  unsuccessfulLoginAttempt: false
-                });
-              }
-            }}
-            value={this.state.password}
-          />
-          <button
-            onClick={() => {
-              if(!this.state.inLoginRequest) {
-                this.login(this.state.email, this.state.password);
-              }
-            }}>
-            Sign In &rarr;
-          </button>
-          <br/>
-          <a className="loginMessage">{this.getLoginMessage()}</a>
+          <div className="input-row">
+            <label>Password</label>
+            <input
+              type="password"
+              className="passwordInput"
+              placeholder="Password"
+              onChange={e => {
+                this.setPassword(e.target.value);
+
+                if (this.state.unsuccessfulLoginAttempt) {
+                  this.setState({
+                    unsuccessfulLoginAttempt: false
+                  });
+                }
+              }}
+              value={this.state.password}
+            />
+          </div>
+
+          <div className="input-row">
+            <button
+              onClick={() => {
+                if(!this.state.inLoginRequest) {
+                  this.login(this.state.email, this.state.password);
+                }
+              }}>
+              Sign In &rarr;
+            </button>
+          </div>
+
+          <div className="input-row">
+            <a className="loginMessage">{this.getLoginMessage()}</a>
+          </div>
         </div>
       );
     } else if (this.state.loginState === 'LOGGING_IN') {
