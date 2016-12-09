@@ -123,7 +123,7 @@ export default class DashboardProjectContainer extends React.Component {
         <div className="project">
           <div className="section">
             <h3>URL</h3>
-            <a href={this.state.activeProject.lines[0].split(" ")[0]}>{this.state.activeProject.url}</a>
+            <a href={this.state.activeProject.lines[0].split(" ")[0]}>{this.state.activeProject.lines[0].split(" ")[0]}</a>
           </div>
           <div className="section">
             <h3>Github URL</h3>
@@ -132,7 +132,6 @@ export default class DashboardProjectContainer extends React.Component {
           <div className="section">
             <h3>Status</h3>
             {this.renderStatusMessages()}
-            <p>{this.state.activeProject.status}</p>
           </div>
         </div>
       </div>
