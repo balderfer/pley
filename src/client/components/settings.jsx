@@ -95,13 +95,10 @@ class Settings extends React.Component {
         });
         return;
       } else {
-        console.log('Send new password too');
         dataToSend.newPassword = this.state.newPassword;
         dataToSend.confirmPassword = this.state.confirmPassword;
       }
     }
-
-    console.log('Send the data:',dataToSend);
 
     request
       .post('/settings')

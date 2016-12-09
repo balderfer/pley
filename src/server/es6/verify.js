@@ -4,33 +4,47 @@ const crypto = require('crypto');
 
 const mailer = require('./mailer');
 
+import { Users } from './collections';
+
 var db = require('./db');
 
 class Verify {
   create(email, done) {
     if (email && this.verifyPurdueEmail(email.toLowerCase())) {
-      this.createVerificationToken((token) => {
-        // Create the user in our database and give them a login token.
-        db.collection('users').update({
-          email: email,
-          verifiedAt: {$exists: false}
-        }, {
-          email: email,
-          createdAt: Date.now(),
-          verificationToken: token,
-          verified: false
-        }, {
-          upsert: true
-        }, (err, result) => {
-          if (err) {
-            done(false);
-          } else if(result && result.nModified === 1) {
-            mailer.sendVerificationEmail(email, token);
-            done(true);
-          } else {
-            done(false);
-          }
-        });
+      // Set the email to lowercase.
+      email = email.toLowerCase();
+
+      Users.findUserByEmail(email, {
+        _id: 1,
+        verifiedAt: 1
+      }, (user) => {
+        // Only create the verification token when the user hasnt been registered yet.
+        if (!user || !user.verifiedAt) {
+          this.createVerificationToken((token) => {
+            // Create the user in our database and give them a login token.
+            db.collection('users').update({
+              email: email,
+              verifiedAt: {$exists: false}
+            }, {
+              email: email,
+              createdAt: Date.now(),
+              verificationToken: token
+            }, {
+              upsert: true
+            }, (err, result) => {
+              if (err) {
+                done(false);
+              } else if(result && result.nModified === 1) {
+                mailer.sendVerificationEmail(email, token);
+                done(true);
+              } else {
+                done(false);
+              }
+            });
+          });
+        } else {
+          done(false);
+        }
       });
     } else {
       done(false);

@@ -85,34 +85,35 @@ var Auth = function () {
   }, {
     key: 'settings',
     value: function settings(req, res) {
-      if (!req.session.user || !req.body || !req.body.currentPassword || !req.body.name) {
+      if (!req.session.user || !req.body || !req.body.password || !req.body.name) {
         res.status(401).end('Thats a bad request');
       } else {
-        console.log('They have the right params. Lets see if they can change settings');
         _collections.Users.findUserByEmail(req.session.user.email, {
           _id: 1,
           hashedPassword: 1
         }, function (user) {
           if (user && user.hashedPassword) {
-            _collections.Users.authenticate(user, req.body.currentPassword, function (match) {
+            _collections.Users.authenticate(user, req.body.password, function (match) {
               if (match) {
                 (function () {
                   // The user is who they say they are, let them change the settings.
-                  console.log('password checks out.');
                   var update = {
                     name: req.body.name
                   };
                   req.session.user.name = req.body.name;
 
+                  console.log('new password:', req.body.newPassword);
+
                   if (req.body.newPassword && req.body.confirmPassword) {
                     _collections.Users.hash(req.body.newPassword, function (err, hash) {
+                      console.log('hashed:', hash);
                       if (err) {
                         console.log('Error hashing password.', err);
                         res.status(400).end('Error hashing password.');
                       }
                       if (hash) {
-                        console.log('Hashed password works');
                         update.hashedPassword = hash;
+                        console.log('update settings:', update);
 
                         _collections.Users.updateUserByEmail(req.body.email, update, function (user) {
                           res.status(200).end('Success');
@@ -159,6 +160,7 @@ var Auth = function () {
             userEmail: req.body.email,
             registerMessage: 'Your passwords don\'t match.'
           });
+          return;
         }
 
         Verify.verifyToken(req.body.email, req.body.token, function (success) {

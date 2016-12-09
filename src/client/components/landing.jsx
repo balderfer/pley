@@ -94,7 +94,7 @@ class Landing extends React.Component {
       return (
         <div className="text-container">
           <p className="small">
-            <span className="red-text">Unable to sign up. Check your internet connection?</span> Something wrong? Shoot us an email at usb@cs.purdue.edu
+            <span className="red-text">Unable to sign up. Check your internet connection? Do you already have an account?</span> Something wrong? Shoot us an email at usb@cs.purdue.edu
           </p>
         </div>
       );

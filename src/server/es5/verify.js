@@ -2,6 +2,8 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _collections = require('./collections');
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var crypto = require('crypto');
@@ -18,29 +20,43 @@ var Verify = function () {
   _createClass(Verify, [{
     key: 'create',
     value: function create(email, done) {
+      var _this = this;
+
       if (email && this.verifyPurdueEmail(email.toLowerCase())) {
-        this.createVerificationToken(function (token) {
-          // Create the user in our database and give them a login token.
-          db.collection('users').update({
-            email: email,
-            verifiedAt: { $exists: false }
-          }, {
-            email: email,
-            createdAt: Date.now(),
-            verificationToken: token,
-            verified: false
-          }, {
-            upsert: true
-          }, function (err, result) {
-            if (err) {
-              done(false);
-            } else if (result && result.nModified === 1) {
-              mailer.sendVerificationEmail(email, token);
-              done(true);
-            } else {
-              done(false);
-            }
-          });
+        // Set the email to lowercase.
+        email = email.toLowerCase();
+
+        _collections.Users.findUserByEmail(email, {
+          _id: 1,
+          verifiedAt: 1
+        }, function (user) {
+          // Only create the verification token when the user hasnt been registered yet.
+          if (!user || !user.verifiedAt) {
+            _this.createVerificationToken(function (token) {
+              // Create the user in our database and give them a login token.
+              db.collection('users').update({
+                email: email,
+                verifiedAt: { $exists: false }
+              }, {
+                email: email,
+                createdAt: Date.now(),
+                verificationToken: token
+              }, {
+                upsert: true
+              }, function (err, result) {
+                if (err) {
+                  done(false);
+                } else if (result && result.nModified === 1) {
+                  mailer.sendVerificationEmail(email, token);
+                  done(true);
+                } else {
+                  done(false);
+                }
+              });
+            });
+          } else {
+            done(false);
+          }
         });
       } else {
         done(false);
