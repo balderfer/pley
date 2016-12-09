@@ -8,7 +8,7 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div className='layout'>
+      <div className="layout">
         <div className="header">
           <div className="container">
             <ul>
