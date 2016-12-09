@@ -25,6 +25,7 @@ var router = express.Router();
 router.post('/api/app/create', _routes.Project.create);
 router.post('/api/app/all', _routes.Project.getProjectsForUser);
 router.post('/api/app/:projectId', _routes.Project.get);
+router.get('/api/app/:projectId/logs', _routes.Project.getLogs);
 
 router.post('/register', _routes.Auth.postRegister);
 router.post('/signup', _routes.Auth.signup);

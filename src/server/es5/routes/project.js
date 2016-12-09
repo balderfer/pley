@@ -77,6 +77,25 @@ var Project = function () {
       }
     }
   }, {
+    key: 'getLogs',
+    value: function getLogs(req, res) {
+      if (!req.session.user) {
+        res.status(403).send('Unauthorized');
+      } else {
+        request.get('http://bart.usb.cs.purdue.edu:3000/logs/' + req.params.projectId).end(function (err, response) {
+          if (err) {
+            console.log(err);
+            res.status(400).json({
+              error: err,
+              response: response
+            });
+          } else {
+            res.status(200).send(response.text);
+          }
+        });
+      }
+    }
+  }, {
     key: 'getProjectsForUser',
     value: function getProjectsForUser(req, res) {
       if (!req.session.user) {
