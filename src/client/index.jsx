@@ -48,6 +48,7 @@ class App extends React.Component {
           setNavState={navState => this.setState({navState})}/>
         <Route path="/dashboard" component={DashboardProjectContainer}/>
         <Route path="/dashboard/new" component={DashboardCreateApplication}/>
+        <Route path="/dashboard/:projectId" component={DashboardProjectContainer}/>
       {this.getLanding()}
       </Router>
     );

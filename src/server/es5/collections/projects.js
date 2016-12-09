@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var db = require('../db');
-
+var mongojs = require('mongojs');
 var saltRounds = 10;
 
 var Users = function () {
@@ -26,43 +26,47 @@ var Users = function () {
   }
 
   _createClass(Users, null, [{
-    key: 'findUserByEmail',
-    value: function findUserByEmail(email, fields, callback) {
-      db.collection('users').findOne({
-        email: email,
-        verifiedAt: { $exists: true }
-      }, fields || {}, function (err, user) {
+    key: 'createProject',
+    value: function createProject(userId, projectName, callback) {
+      db.collection('projects').save({
+        name: projectName,
+        author: userId,
+        createdAt: Date.now()
+      }, function (err, project) {
         if (err) {
-          console.log("Error finding user, " + email, err);
+          console.log("Error saving project, " + email, err);
+          callback(null);
         } else {
-          callback(user);
+          console.log("Created project");
+          callback(project);
         }
       });
     }
   }, {
-    key: 'updateUserByEmail',
-    value: function updateUserByEmail(email, opts, callback) {
-      db.collection('users').update({
-        email: email
-      }, {
-        $set: opts
-      }, function (err, user) {
+    key: 'findProjectById',
+    value: function findProjectById(projectId, fields, callback) {
+      db.collection('projects').findOne({
+        _id: mongojs.ObjectId(projectId)
+      }, fields || {}, function (err, project) {
         if (err) {
-          console.log("Error updating user, " + email, err);
+          console.log("Error finding project, " + projectId, err);
         } else {
-          callback(user);
+          callback(project);
         }
       });
     }
   }, {
-    key: 'authenticate',
-    value: function authenticate(user, password, callback) {
-      _bcrypt2.default.compare(password, user.hashedPassword).then(callback);
-    }
-  }, {
-    key: 'hash',
-    value: function hash(text, callback) {
-      _bcrypt2.default.hash(text, saltRounds, callback);
+    key: 'findAllProjectsByUser',
+    value: function findAllProjectsByUser(userId, fields, callback) {
+      db.collection('projects').find({
+        author: userId
+      }, fields || {}, function (err, projects) {
+        if (err) {
+          console.log('Error finding projects for user, ' + userId, err);
+        } else {
+          callback(projects);
+        }
+      });
     }
   }]);
 

@@ -43,7 +43,6 @@ class Login extends React.Component {
       })
       .withCredentials()
       .end((err, res) => {
-        console.log('err:',err);
         if (err || res.statusCode !== 200) {
           this.setState({
             unsuccessfulLoginAttempt: true

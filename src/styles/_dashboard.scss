@@ -36,14 +36,16 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem;
     box-sizing: border-box;
     z-index: 10;
     box-shadow: 0 2px 4px rgba($grey900, 0.3);
 
     &-light {
-      background: $grey300;
+      background: $grey50;
       color: $grey800;
+      box-shadow: none;
+      border-bottom: 1px solid $grey300;
     }
 
     &-left, &-right {
@@ -77,6 +79,9 @@
 
       a {
         color: $grey500;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 900;
 
         &:hover {
           color: $yellow;
@@ -86,6 +91,9 @@
       h2 {
         margin: 0;
         font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 900;
       }
 
       .ion-chevron-right {
@@ -129,6 +137,10 @@
         padding: 0 0.75rem;
         color: $grey600;
         font-size: 0.8rem;
+
+        a {
+          color: $grey800;
+        }
       }
 
       button {
@@ -149,9 +161,15 @@
 
 .create-application {
   display: flex;
+  flex-direction: column;
   flex: 1;
 
   .dashboard-header {
     z-index: 4;
+  }
+
+  &-form {
+    padding: 4rem;
+    box-sizing: border-box;
   }
 }

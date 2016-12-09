@@ -1,14 +1,33 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import DashboardHeader from './dashboard-header.jsx';
 import DashboardProjectContainer from './dashboard-project-container.jsx';
+const request = require('superagent');
 
 export default class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeProject: null
+      activeProject: null,
+      projects: []
     };
+  }
+
+  componentWillMount() {
+    this.loadProjects();
+  }
+
+  loadProjects() {
+    request
+      .post('/api/app/all')
+      .withCredentials()
+      .end((err, res) => {
+        console.log(res);
+        this.setState({
+          projects: JSON.parse(res.text)
+        });
+      });
   }
 
   logout() {
@@ -23,10 +42,7 @@ export default class DashboardPage extends React.Component {
           <div className="dashboard-sidebar">
             <h2>Your Apps</h2>
             <ul>
-              <li className="floating-hover">App</li>
-              <li className="floating-hover">App</li>
-              <li className="floating-hover">App</li>
-              <li className="floating-hover">App</li>
+              {this.renderApps()}
             </ul>
             <a href="/dashboard/new"><button>New Application</button></a>
           </div>
@@ -36,5 +52,15 @@ export default class DashboardPage extends React.Component {
         </div>
       </div>
     );
+  }
+
+  renderApps() {
+    return this.state.projects.map((project) => {
+      return (
+        <li key={project._id} className="floating-hover">
+          <Link to={"/dashboard/"+project._id}>{project.name}</Link>
+        </li>
+      );
+    });
   }
 }

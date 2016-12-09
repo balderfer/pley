@@ -25,4 +25,14 @@
       }
     }
   }
+
+  &-loaded {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .dashboard-header {
+      z-index: 4;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 export default class Dropdown extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export default class Dropdown extends React.Component {
 
         <div className={this.getMenuClasses()} hidden={!this.state.dropdownOpen}>
           <ul>
-            <li><a href="/settings">Settings</a></li>
+            <li><Link to="/settings">Settings</Link></li>
             <li><a href="/logout">Log Out</a></li>
           </ul>
         </div>

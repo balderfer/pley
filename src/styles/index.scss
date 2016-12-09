@@ -14,6 +14,7 @@ $yellow: #f1c40f;
 @import 'dashboard';
 @import 'dropdown';
 @import 'project-container';
+@import 'form';
 
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -296,4 +297,16 @@ p.small {
 
 .loginMessage {
   color: red;
+}
+
+.settingsErrorMessage {
+  color: red !important;
+}
+
+.settingsSuccessMessage {
+  color: green !important;
+}
+
+.smallSettingsLabel {
+  font-size: 0.7em;
 }

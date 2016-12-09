@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-import { Auth } from './routes';
+import { Auth, Project } from './routes';
 
 // Return data related to a user's dashboard.
 // router.get('/dashboard', (req, res) => {
@@ -20,16 +20,18 @@ import { Auth } from './routes';
 //     });
 //   }
 // });
+router.post('/api/app/create', Project.create);
+router.post('/api/app/all', Project.getProjectsForUser);
+router.post('/api/app/:projectId', Project.get);
 
-router.get('/register', Auth.getRegister);
 router.post('/register', Auth.postRegister);
 router.post('/signup', Auth.signup);
 router.post('/login', Auth.login);
+router.post('/settings', Auth.settings);
+
+router.get('/register', Auth.getRegister);
 router.get('/logout', Auth.logout);
-router.get('/settings', Auth.settings);
-router.get(['/register'], (req, res) => res.render('register'));
-router.get(['/', '/docs', '/about', '/login', '/dashboard', '/dashboard/new', '/settings'], (req, res) => {
-  console.log('session:',req.session);
+router.get('*', (req, res) => {
   res.render('index', {
     user: JSON.stringify(req.session.user || {})
   });

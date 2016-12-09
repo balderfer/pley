@@ -85,7 +85,57 @@ var Auth = function () {
   }, {
     key: 'settings',
     value: function settings(req, res) {
-      if (!req.body || !req.body.name) {}
+      if (!req.session.user || !req.body || !req.body.currentPassword || !req.body.name) {
+        res.status(401).end('Thats a bad request');
+      } else {
+        console.log('They have the right params. Lets see if they can change settings');
+        _collections.Users.findUserByEmail(req.session.user.email, {
+          _id: 1,
+          hashedPassword: 1
+        }, function (user) {
+          if (user && user.hashedPassword) {
+            _collections.Users.authenticate(user, req.body.currentPassword, function (match) {
+              if (match) {
+                (function () {
+                  // The user is who they say they are, let them change the settings.
+                  console.log('password checks out.');
+                  var update = {
+                    name: req.body.name
+                  };
+                  req.session.user.name = req.body.name;
+
+                  if (req.body.newPassword && req.body.confirmPassword) {
+                    _collections.Users.hash(req.body.newPassword, function (err, hash) {
+                      if (err) {
+                        console.log('Error hashing password.', err);
+                        res.status(400).end('Error hashing password.');
+                      }
+                      if (hash) {
+                        console.log('Hashed password works');
+                        update.hashedPassword = hash;
+
+                        _collections.Users.updateUserByEmail(req.body.email, update, function (user) {
+                          res.status(200).end('Success');
+                        });
+                      }
+                    });
+                  } else {
+                    // The user is who they say they are, let them change the settings.
+                    _collections.Users.updateUserByEmail(req.body.email, update, function (user) {
+                      res.status(200).end('Success');
+                    });
+                  }
+                })();
+              } else {
+                res.status(401).end('Invalid email/password.');
+              }
+            });
+          } else {
+            // No match in db for email with a verified account.
+            res.status(401).end('Cannot find user');
+          }
+        });
+      }
     }
   }, {
     key: 'getRegister',
