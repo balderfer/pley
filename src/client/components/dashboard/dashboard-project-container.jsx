@@ -32,6 +32,7 @@ export default class DashboardProjectContainer extends React.Component {
         var projects = page.data.projects;
         for (var i in projects) {
           if (projects[i].name === props.params.projectId) {
+            console.log(projects[i]);
             this.setState({
               pageState: "loaded",
               activeProject: projects[i]

@@ -33,7 +33,7 @@ app.use(session({
     secure: false
   },
   store: new MongoStore({
-    url: 'mongodb://localhost:27017/pley-sessions'
+    url: 'mongodb://bart.usb.cs.purdue.edu:27017/pley-sessions'
   })
 }));
 
